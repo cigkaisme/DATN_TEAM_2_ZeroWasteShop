@@ -1,0 +1,49 @@
+<main class="home-page-container">
+
+  <section class="hero-banner">
+    <div class="banner-content">
+      <h1 class="main-heading">Bắt đầu hành trình sống xanh của bạn</h1>
+      <p class="sub-text">Khám phá các bộ sản phẩm Zero Waste được thiết kế riêng cho người mới bắt đầu.</p>
+
+      <div class="cta-buttons">
+        <a routerLink="/cua-hang" class="btn btn-primary">
+          Khám phá Starter Kits
+        </a>
+        <a routerLink="/san-pham" class="btn btn-secondary">
+          Tạo bộ sản phẩm riêng
+        </a>
+      </div>
+    </div>
+    <div class="banner-image">
+      <img src="assets/images/banner_home.jpg" alt="Zero Waste Starter Kit" class="img-fluid">
+    </div>
+  </section>
+
+  <section class="core-values-section">
+    <h2 class="section-title">4 Giá Trị Cốt Lõi Của Zero Waste Shop</h2>
+
+    <div class="values-grid">
+      @for (value of coreValues; track value.title) {
+        <div class="value-card">
+          <span class="icon">{{ value.icon }}</span>
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+          <a routerLink="/about" class="read-more">Tìm hiểu thêm →</a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="commitment-section">
+    <div class="commitment-content">
+      <h2 class="commitment-title">BẠN VẪN CÒN NGẦN NGẠI?</h2>
+      <p class="commitment-text">
+        Nếu bạn không chắc sản phẩm thiên nhiên có phù hợp, đừng lo. Nếu bạn **không hài lòng** với bộ **STARTER KIT** đầu tiên, chúng tôi cam kết **HOÀN TIỀN 100% TRONG 30 NGÀY**.
+      </p>
+      <a routerLink="/chinh-sach" class="btn btn-commitment">
+        BẮT ĐẦU KHÔNG RỦI RO!
+      </a>
+    </div>
+  </section>
+
+</main>

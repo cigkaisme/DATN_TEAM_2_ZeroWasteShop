@@ -1,0 +1,176 @@
+.footer {
+    background: linear-gradient(180deg, #A8D5E5 0%, #B9EDC8 100%);
+    padding: 40px 20px;
+    color: #000;
+    font-family: Arial, sans-serif;
+
+    .contact-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 0;
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .contact-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+
+            .left-content {
+                flex: 1;
+
+                p {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                .faq-button {
+                    background: #000;
+                    color: #fff;
+                    padding: 12px 24px;
+                    border: none;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+            }
+
+            .right-content {
+                flex: 1;
+
+                h3 {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                .contact-form {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 15px;
+
+                    input {
+                        flex: 1;
+                        padding: 10px;
+                        border: 1px solid #000;
+                    }
+
+                    .send-button {
+                        background: #000;
+                        color: #fff;
+                        padding: 10px 30px;
+                        border: none;
+                        cursor: pointer;
+                    }
+                }
+
+                .consent-checkbox {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .main-footer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 0;
+        display: flex;
+        justify-content: space-between;
+
+        .logo-section {
+            flex: 1;
+
+            .logo {
+                margin-bottom: 20px;
+                img {
+                    max-width: 200px;
+                }
+            }
+
+            .tagline {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 15px;
+
+                .social-icon {
+                    color: #000;
+                    font-size: 20px;
+                    text-decoration: none;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+
+            .footer-column {
+                h3 {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin-bottom: 15px;
+                }
+
+                a {
+                    display: block;
+                    color: #000;
+                    text-decoration: none;
+                    margin-bottom: 10px;
+                    font-size: 14px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+
+        .bottom-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+
+            a {
+                color: #000;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .address {
+                margin-left: auto;
+            }
+        }
+
+        .copyright {
+            text-align: right;
+            color: rgba(0, 0, 0, 0.7);
+        }
+    }
+}
