@@ -25,13 +25,11 @@
             "inlineStyleLanguage": "css",
             "assets": [
               {
-                "input": "src",
-                "glob": "favicon.ico"
-              },
-              {
                 "input": "src/assets",
-                "glob": "**/*"
-              }
+                "glob": "**/*",
+                "output": "assets"
+              },
+              "src/favicon.ico"
             ],
             "styles": [
               "src/styles.css"

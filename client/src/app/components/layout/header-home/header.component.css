@@ -18,7 +18,13 @@
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
-    border: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+}
+
+.slider-text {
+    animation: marquee 20s linear infinite;
+    display: inline-block;
 }
 
 @keyframes marquee {
@@ -69,7 +75,7 @@
     position: sticky;
     top: 20px;
     z-index: 999;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.85);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     padding: 25px 0;
     margin-top: 30px;
@@ -126,9 +132,10 @@
 
 .nav-icons {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     width: 150px;
     justify-content: flex-end;
+    margin-left: 30px;
 }
 
 .nav-icon {
@@ -143,7 +150,7 @@
 
 .hero-banner {
     width: 100%;
-    height: 75vh;
+    height: 95vh;
     overflow: hidden;
     position: relative;
     margin-bottom: 50px;
@@ -155,9 +162,61 @@
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+.hero-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+.hero-slider-track {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    width: 400%; /* Bằng số lượng slide (4 slides * 100%) */
+    height: 100%;
+    z-index: 1;
+    animation: slide-hero 20s infinite ease-in-out; /* Tổng thời gian 20s */
+}
+
+.hero-slide {
+    width: 25%; /* 100% / 4 slides = 25% */
+    height: 100%;
+    min-width: 25%;
+    flex-basis: 25%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@keyframes slide-hero {
+    /* Dịch chuyển sang trái (Ảnh 2) */
+    /* Chiều rộng của 1 slide là 25% của 400% track = 100% màn hình */
+
+    /* 0% - 20% (Ảnh 1) */
+    0%   { transform: translateX(0%); }
+    20%  { transform: translateX(0%); }
+
+    /* 25% - 45% (Ảnh 2) */
+    25%  { transform: translateX(-25%); } /* Dịch chuyển sang trái 25% (tính trên 400% track) */
+    45%  { transform: translateX(-25%); }
+
+    /* 50% - 70% (Ảnh 3) */
+    50%  { transform: translateX(-50%); } /* Dịch chuyển sang trái 50% */
+    70%  { transform: translateX(-50%); }
+
+    /* 75% - 95% (Ảnh 4) */
+    75%  { transform: translateX(-75%); } /* Dịch chuyển sang trái 75% */
+    95%  { transform: translateX(-75%); }
+
+    /* Quay lại Ảnh 1 */
+    100% { transform: translateX(0%); }
 }
 
 .hero-background-image {
@@ -168,19 +227,10 @@
     z-index: -1;
 }
 
-.hero-overlay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.35);
-    z-index: 0;
-}
-
 .hero-content {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
     max-width: 900px;
     margin-left: 100px;
@@ -190,26 +240,26 @@
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 60px;
     font-weight: bold;
-    color: #92DD60;
+    color: #7ED957;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     text-align: left;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: 40px;
     font-weight: 400;
     color: #e0e0e0;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     text-align: left;
 }
 
 .hero-cta {
     display: inline-block;
     padding: 15px 35px;
-    background-color: #79a850;
+    background-color: #7ED957;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -219,10 +269,11 @@
     transition: background-color 0.3s;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: left;
+    border: 0.5px solid #000000;
 }
 
 .hero-cta:hover {
-    background-color: #5d823f;
+    background-color: #67c519;
 }
 
 .has-dropdown {

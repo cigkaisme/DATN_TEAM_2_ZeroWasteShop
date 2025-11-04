@@ -20,7 +20,6 @@
       "@core/*": ["app/core/*"],
       "@components/*": ["app/components/*"],
       "@pages/*": ["app/pages/*"],
-      "@assets/*": ["assets/*"]
     }
   },
   "angularCompilerOptions": {
