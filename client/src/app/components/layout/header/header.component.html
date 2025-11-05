@@ -17,40 +17,40 @@
         </div>
     </div>
 </div>
-  <nav class="navigation-bar">
+  <nav class="navigation-bar main-nav-row">
     <div class="nav-container">
-      <ul class="nav-left">
-        <li><a routerLink="/trang-chu" class="nav-link">TRANG CHỦ</a></li>
-        <li><a routerLink="/san-pham" class="nav-link">SẢN PHẨM</a></li>
-        <li class="has-dropdown">
-          <a routerLink="/danh-muc" class="nav-link">DANH MỤC</a>
-          <i class="fas fa-caret-down dropdown-icon"></i>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/danh-muc/san-pham-moi" class="dropdown-link">Sản Phẩm Mới</a></li>
-            <li><a routerLink="/danh-muc/san-pham-ban-chay" class="dropdown-link">Sản Phẩm Bán Chạy</a></li>
-            <li><a routerLink="/danh-muc/khuyen-mai" class="dropdown-link">Khuyến Mãi</a></li>
-          </ul>
-        </li>
-      </ul>
 
-      <div class="logo">
-        <a routerLink="/trang-chu">
-          <img class="logo-image" src="/assets/images/logo/zerowasteshop_logo.png" alt="Zero Waste Shop Logo">
-        </a>
-      </div>
+        <div class="logo logo-large">
+            <a routerLink="/trang-chu">
+                <img class="logo-image" src="/assets/images/logo/zerowasteshop_logo.png" alt="Zero Waste Shop Logo">
+            </a>
+        </div>
 
-      <ul class="nav-right">
-        <li><a routerLink="/ve-chung-toi" class="nav-link">VỀ CHÚNG TÔI</a></li>
-        <li><a routerLink="/bai-viet" class="nav-link">BÀI VIẾT</a></li>
-      </ul>
+        <div class="search-bar-container">
+            <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" style="font-family: Montserrat;">
+            <button class="search-button"><i class="fas fa-search"></i></button>
+        </div>
 
-      <div class="nav-icons">
-        <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
-        <a routerLink="/gio-hang" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-        <a routerLink="/yeu-thich" class="nav-icon"><i class="fas fa-heart"></i></a>
-      </div>
+        <div class="nav-icons nav-icons-large">
+            <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
+            <a routerLink="/gio-hang" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+            <a routerLink="/yeu-thich" class="nav-icon"><i class="fas fa-heart"></i></a>
+        </div>
+
     </div>
-  </nav>
+</nav>
+
+<nav class="navigation-bar sub-nav-row">
+    <div class="nav-container">
+        <ul class="sub-nav-menu">
+            <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
+            <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
+            <li><a routerLink="/danh-muc" class="sub-nav-link"><i class="fas fa-list-ul"></i> DANH MỤC</a></li>
+            <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a></li>
+            <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU THÍCH</a></li>
+        </ul>
+    </div>
+</nav>
 
   <section class="hero-banner" role="banner">
     <div class="hero-overlay">

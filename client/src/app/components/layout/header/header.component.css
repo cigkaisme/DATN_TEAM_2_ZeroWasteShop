@@ -72,9 +72,7 @@
 }
 
 .navigation-bar {
-    position: sticky;
     top: 20px;
-    z-index: 999;
     background-color: rgba(255, 255, 255, 0.85);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     padding: 25px 0;
@@ -90,7 +88,7 @@
     margin-left: -30px;
 }
 
-.nav-link {
+.sub-nav-link {
     color: #333;
     text-decoration: none;
     font-size: 14px;
@@ -101,11 +99,11 @@
     transition: color 0.3s;
 }
 
-.nav-link:hover {
+.sub-nav-link:hover {
     color: #2C742F;
 }
 
-.nav-link::after {
+.sub-nav-link::after {
     content: '';
     position: absolute;
     width: 0;
@@ -116,7 +114,7 @@
     transition: width 0.3s ease-out;
 }
 
-.nav-link:hover::after {
+.sub-nav-link:hover::after {
     width: 100%;
 }
 
@@ -139,13 +137,117 @@
 }
 
 .nav-icon {
-    color: #333;
+    color: #2C742F;
     font-size: 18px;
     transition: color 0.3s;
 }
 
 .nav-icon:hover {
     color: #2C742F;
+}
+
+.main-nav-row {
+    background-color: white;
+    box-shadow: none;
+    padding: 15px 0;
+    margin-top: 0;
+    position: relative;
+}
+
+.main-nav-row .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-large {
+    width: 250px;
+    text-align: left;
+    margin-left: 0;
+}
+
+.logo-image {
+    max-height: 50px;
+    margin-left: -25px;
+}
+
+.search-bar-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: -400px;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 15px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-button {
+    background-color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #2C742F;
+    font-size: 16px;
+}
+
+/* Icons (Nav Right) */
+.nav-icons-large {
+    width: 150px; /* Cố định chiều rộng */
+    justify-content: flex-end;
+    margin-right: 0;
+}
+
+/* --- CSS CHO DÒNG PHỤ (SUB MENU) --- */
+.sub-nav-row {
+    background-color: #ffffff;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    padding-bottom: 15px;
+}
+
+.sub-nav-menu {
+    display: flex;
+    justify-content: space-between; /* Căn đều các mục */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 80px;
+    margin-left: 5px;
+    margin-bottom: 8px;
+}
+
+.sub-nav-link {
+    color: #2C742F;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.sub-nav-link i {
+    margin-right: 5px;
+}
+
+.sub-nav-link:hover {
+    color: #2C742F;
+    cursor: pointer; /* Màu sáng hơn khi hover */
+}
+
+.nav-container {
+    margin-bottom: -8px;
 }
 
 .hero-banner {
