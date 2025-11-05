@@ -1,41 +1,78 @@
 <header class="header-container">
   <div class="top-banner">
-    <p class="top-banner-slider">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa</p>
-  </div>
+    <div class="top-banner-slider">
+        <div class="slider-text">
+            <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
+            <span class="separator">|</span>
+            <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
+            <span class="separator">|</span>
+            <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste Shop</strong>.</span>
 
-  <nav class="navigation-bar">
-    <div class="nav-container">
-      <ul class="nav-left">
-        <li><a routerLink="/trang-chu" class="nav-link">TRANG CHỦ</a></li>
-        <li><a routerLink="/san-pham" class="nav-link">SẢN PHẨM</a></li>
-        <li class="has-dropdown"><a routerLink="/danh-muc" class="nav-link">DANH MỤC</a></li>
-      </ul>
-
-      <div class="logo">
-        <a routerLink="/trang-chu">
-          <img src="assets/images/logo.png" alt="Zero Waste Shop Logo" class="logo-image">
-        </a>
-      </div>
-
-      <ul class="nav-right">
-        <li><a routerLink="/ve-chung-toi" class="nav-link">VỀ CHÚNG TÔI</a></li>
-        <li><a routerLink="/bai-viet" class="nav-link">BÀI VIẾT</a></li>
-      </ul>
-
-      <div class="nav-icons">
-        <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
-        <a routerLink="/gio-hang" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-        <a routerLink="/yeu-thich" class="nav-icon"><i class="fas fa-heart"></i></a>
-      </div>
+            <span class="separator">|</span>
+            <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
+            <span class="separator">|</span>
+            <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
+            <span class="separator">|</span>
+            <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste Shop</strong>.</span>
+        </div>
     </div>
-  </nav>
+</div>
+  <nav class="navigation-bar main-nav-row">
+    <div class="nav-container">
+
+        <div class="logo logo-large">
+            <a routerLink="/trang-chu">
+                <img class="logo-image" src="/assets/images/logo/zerowasteshop_logo.png" alt="Zero Waste Shop Logo">
+            </a>
+        </div>
+
+        <div class="search-bar-container">
+            <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" style="font-family: Montserrat;">
+            <button class="search-button"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="nav-icons nav-icons-large">
+            <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
+            <a routerLink="/gio-hang" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+            <a routerLink="/yeu-thich" class="nav-icon"><i class="fas fa-heart"></i></a>
+        </div>
+
+    </div>
+</nav>
+
+<nav class="navigation-bar sub-nav-row">
+    <div class="nav-container">
+        <ul class="sub-nav-menu">
+            <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
+            <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
+            <li><a routerLink="/danh-muc" class="sub-nav-link"><i class="fas fa-list-ul"></i> DANH MỤC</a></li>
+            <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a></li>
+            <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU THÍCH</a></li>
+        </ul>
+    </div>
+</nav>
 
   <section class="hero-banner" role="banner">
     <div class="hero-overlay">
+      <div class="hero-slider-track">
+
+          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_1.jpg');"></div>
+
+          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_2.jpeg');"></div>
+
+          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_3.png');"></div>
+
+          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_4.png');"></div>
+
+      </div>
       <div class="hero-content">
-        <h1 class="hero-title">Việt Nam tạo ra khoảng 60 nghìn tấn rác thải mỗi ngày!</h1>
-        <p class="hero-subtitle">Đã đến lúc chúng ta phải suy nghĩ lại về cách tiêu dùng.</p>
-        <a routerLink="/san-pham" class="hero-cta">MUA SẢN PHẨM BÁN CHẠY</a>
+
+          <h1 class="hero-title">Việt Nam tạo ra khoảng 60 nghìn tấn rác thải mỗi ngày!</h1>
+
+          <p class="hero-subtitle">Đã đến lúc chúng ta phải suy nghĩ lại về cách tiêu dùng.</p>
+
+          <a routerLink="/san-pham" class="hero-cta">MUA SẢN PHẨM BÁN CHẠY</a>
+
       </div>
     </div>
   </section>
