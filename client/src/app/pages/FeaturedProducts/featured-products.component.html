@@ -1,0 +1,49 @@
+<section class="featured-products-section">
+    <h2 class="section-title">
+        HÀNH TRÌNH CỦA BẠN BẮT ĐẦU TỪ ĐÂY:
+        <br>
+        HÃY BẮT ĐẦU NGAY VỚI <span class="highlight-text">BỘ SẢN PHẨM CƠ BẢN</span> CỦA CHÚNG TÔI!
+    </h2>
+
+    <div class="carousel-container">
+
+        <button
+            class="slide-control prev"
+            (click)="slide('prev')"
+            [disabled]="currentSlidePosition === 0"
+        >
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <div class="product-grid-wrapper">
+            <div
+                class="product-slider-track"
+                [style.transform]="'translateX(' + (-this.currentSlidePosition * this.cardWidth) + 'px)'"
+            >
+                <div *ngFor="let product of featuredProducts" class="product-card">
+                    <div
+                        class="product-image-container"
+                        [style.background-image]="'url(' + product.thumbnailUrl + ')'"
+                    >
+                        <i class="fas fa-heart product-wishlist"></i>
+                    </div>
+
+                    <div class="product-info">
+                        <h3 class="product-name">{{ product.name }}</h3>
+                        <p class="product-price">{{ product.price | currency:'VND':'symbol':'1.0-0' }}</p>
+
+                        <button class="buy-now-button" [routerLink]="['/product', product.slug]">MUA NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button
+            class="slide-control next"
+            (click)="slide('next')"
+            [disabled]="currentSlidePosition >= featuredProducts.length - 4"
+        >
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>

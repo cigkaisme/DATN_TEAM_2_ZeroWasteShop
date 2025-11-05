@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,5 +10,13 @@ import { HostListener, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  // Biến kiểm soát trạng thái menu
+  isMenuOpen: boolean = false;
 
+  constructor() { }
+
+  // Hàm mở/đóng menu
+  toggleSideMenu() {
+  this.isMenuOpen = !this.isMenuOpen;
+}
 }

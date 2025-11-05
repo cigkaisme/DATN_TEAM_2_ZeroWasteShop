@@ -40,17 +40,55 @@
     </div>
 </nav>
 
-<nav class="navigation-bar sub-nav-row">
-    <div class="nav-container">
-        <ul class="sub-nav-menu">
-            <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
-            <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
-            <li><a routerLink="/danh-muc" class="sub-nav-link"><i class="fas fa-list-ul"></i> DANH MỤC</a></li>
-            <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a></li>
-            <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU THÍCH</a></li>
+  <nav class="navigation-bar sub-nav-row">
+      <div class="nav-container">
+          <ul class="sub-nav-menu">
+              <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
+              <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
+
+              <li (click)="toggleSideMenu()" class="sub-nav-item">
+                  <a class="sub-nav-link dropdown-toggle">
+                      <i class="fas fa-list-ul"></i> DANH MỤC <i class="fas fa-chevron-down dropdown-arrow"></i>
+                  </a>
+              </li>
+
+              <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a></li>
+              <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU THÍCH</a></li>
+          </ul>
+      </div>
+  </nav>
+
+  <div class="side-menu-overlay" [class.active]="isMenuOpen" (click)="toggleSideMenu()"></div>
+
+  <div class="side-menu-panel" [class.active]="isMenuOpen">
+      <div class="menu-header">
+          <span class="menu-title">DANH MỤC SẢN PHẨM</span>
+          <button class="close-btn" (click)="toggleSideMenu()"><i class="fas fa-times"></i></button>
+      </div>
+
+      <ul class="side-menu-list">
+          <li class="menu-section-title">CHĂM SÓC CÁ NHÂN</li>
+          <li><a routerLink="/danh-muc/cham-soc-toc">Chăm Sóc Tóc</a></li>
+          <li><a routerLink="/danh-muc/ve-sinh-rang-mieng">Vệ Sinh Răng Miệng</a></li>
+          <li><a routerLink="/danh-muc/tam-co-the">Tắm & Cơ Thể</a></li>
+
+          <li class="menu-divider"></li>
+
+          <li class="menu-section-title">ĐỒ DÙNG GIA ĐÌNH</li>
+          <li><a routerLink="/danh-muc/nha-bep">Nhà Bếp</a></li>
+          <li><a routerLink="/danh-muc/ve-sinh-nha-cua">Vệ Sinh Nhà Cửa</a></li>
+
+          <li class="menu-divider"></li>
+
+          <li class="menu-section-title">TÁI SỬ DỤNG</li>
+          <li><a routerLink="/danh-muc/mang-di-on-the-go">Mang Đi (On-the-Go)</a></li>
+          <li><a routerLink="/danh-muc/ho-tro-mua-sam">Hỗ Trợ Mua Sắm</a></li>
+          <li><a routerLink="/danh-muc/dung-va-luu-tru">Đựng & Lưu Trữ</a></li>
+          <li><a routerLink="/danh-muc/vai-va-bong">Vải & Bông</a></li>
+
+          <li class="menu-section-title"><a routerLink="/starter-kit">STARTER KIT</a></li>
         </ul>
-    </div>
-</nav>
+  </div>
 
   <section class="hero-banner" role="banner">
     <div class="hero-overlay">
