@@ -1,0 +1,62 @@
+<section class="category-section-wrapper" *ngFor="let category of categories; index as i">
+
+    <div class="category-header">
+        <div class="title-group">
+            <img src="assets/images/logo/zerowasteshop_logo.png" alt="ZeroWasteShop Logo" class="logo-img">
+            <h2 class="category-title">
+                {{ category.name }}
+            </h2>
+        </div>
+
+        <div class="line"></div>
+
+        <a [routerLink]="category.routerLink" class="shop-now-btn">
+            MUA SẮM NGAY
+        </a>
+    </div>
+
+    <div class="product-grid" [ngClass]="{ 'layout-reversed': i % 2 !== 0 }">
+
+        <article
+            class="product-card"
+            *ngFor="let product of category.products; index as j"
+            (click)="navigateToProduct(product, $event)"
+            [ngStyle]="{ 'cursor': product.name ? 'pointer' : 'default' }"
+        >
+            <div class="media">
+
+                <ng-container *ngIf="j === 0 && product.isLargeMedia">
+                    <img [src]="product.mediaUrl || product.thumbnailUrl" [alt]="product.name" class="product-gif" />
+                    <div class="video-overlay-text">
+                        {{ product.videoOverlayText }}
+                    </div>
+                    <div class="video-logo">
+                        <img src="assets/images/logo/zerowasteshop_logo.png" alt="Brand Logo">
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="j !== 0 || !product.isLargeMedia">
+                    <img [src]="product.thumbnailUrl" [alt]="product.name" />
+                    <img [src]="product.hoverUrl" [alt]="product.name" class="hover-img" *ngIf="product.hoverUrl" />
+
+                    <button class="wish-btn" aria-label="wishlist" (click)="$event.stopPropagation()">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+
+                    <div class="product-label" *ngIf="product.label">{{ product.label }}</div>
+
+                    <div class="product-overlay-info">
+                        <div class="star-group">
+                            <ng-container *ngFor="let s of [1,2,3,4,5]; let k = index">
+                                <i class="fa fa-star" [class.on]="k < Math.round(product.averageRating || 0)"></i>
+                            </ng-container>
+                            <div class="reviews">{{ product.reviewCount }} reviews</div>
+                        </div>
+                        <h3 class="title">{{ product.name }}</h3>
+                        <div class="price">{{ product.price | number }} đ</div>
+                        <button class="buy-now-btn" (click)="$event.stopPropagation(); router.navigate(['/product', product.slug || product.id])">MUA NGAY</button>
+                    </div>
+                </ng-container>
+                </div>
+        </article>
+        </div>
+</section>

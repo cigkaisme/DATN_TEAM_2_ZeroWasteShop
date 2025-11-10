@@ -1,0 +1,103 @@
+.challenge-banner-section {
+    background-image: url('assets/images/banners/challenge_banner.png');
+    background-size: cover;
+    background-position: center;
+    padding: 0px 20px;
+    text-align: center;
+    color: white;
+    border: 2px solid #7ED957;
+}
+
+.banner-content {
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 12px;
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    text-align: right;
+}
+
+.description {
+    font-size: 20px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: 700;
+    text-align: right;
+    text-transform: uppercase;
+    padding-left: 650px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.banner-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 700px;
+    margin-left: auto;
+    gap: 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    margin-bottom: 0;
+}
+
+.social-icons a {
+    display: inline-flex;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    /* Loại bỏ padding và border nếu có */
+    text-decoration: none;
+}
+
+/* Định dạng Icon Font Awesome */
+.social-icons a i {
+    font-size: 35px; /* Kích thước icon */
+    color: #000000; /* Màu icon mặc định (ví dụ: đen/xám) */
+    transition: color 0.3s;
+}
+
+/* Thay đổi màu icon khi hover */
+.social-icons a:hover i {
+    color: white;
+}
+
+.cta-challenge-btn {
+    background-color: #7ED957;
+    color: white;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cta-challenge-btn:hover {
+    background-color: #00a651;
+}
+
+@media (max-width: 600px) {
+    .banner-actions {
+        flex-direction: column; /* Xếp dọc trên màn hình nhỏ */
+        gap: 15px;
+    }
+    .cta-challenge-btn {
+        margin-left: 0; /* Xóa margin auto khi xếp dọc */
+        width: 100%; /* Choán hết chiều rộng */
+    }
+}

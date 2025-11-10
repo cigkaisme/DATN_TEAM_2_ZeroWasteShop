@@ -60,7 +60,14 @@ export class HomeIntroComponent implements OnInit {
 
   // --- DỮ LIỆU SLIDER COMMENT (Featured Reviews) ---
   reviews: CustomerReview[] = [
-
+    // COMMENT MẪU 1
+    {
+      id: 1,
+      reviewerName: 'Nguyễn Văn A',
+      rating: 5,
+      quote: "Sản phẩm chất lượng vượt trội, giao hàng nhanh chóng. Tôi cảm thấy yên tâm khi sử dụng các sản phẩm thân thiện môi trường của shop!",
+      isVerified: true
+    }
   ];
 
   currentReviewIndex: number = 0;
@@ -68,6 +75,7 @@ export class HomeIntroComponent implements OnInit {
 
   ngOnInit() {
     this.calculateDistribution();
+    // Bắt đầu slider chỉ sau khi dữ liệu đã được khởi tạo
     this.startSlider();
   }
 
@@ -89,13 +97,14 @@ export class HomeIntroComponent implements OnInit {
   }
 
   startSlider() {
-    this.stopSlider();
+        this.stopSlider();
 
-    if (this.reviews.length > 1) {
-      this.sliderInterval = setInterval(() => {
-        this.nextSlide();
-      }, 6000);
-    }
+        // Chỉ chạy slider nếu có nhiều hơn 1 review
+        if (this.reviews.length > 1) {
+            this.sliderInterval = setInterval(() => {
+                this.nextSlide();
+            }, 6000); // Tự động chuyển slide sau 6 giây
+        }
   }
 
   stopSlider() {

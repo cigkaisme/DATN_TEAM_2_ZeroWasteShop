@@ -1,153 +1,326 @@
-.featured-products-section {
-    padding: 60px 0;
-    text-align: center;
-    background-color: #f7f7f7;
+:root{
+  --card-w: 200px;
+  --card-h-img: 200px;
+  --gap: 24px;
+  --green: #00a651;
 }
 
-.section-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 40px;
+/* helper constants used in TS: CARD_WIDTH = 240, GAP = 20 */
+
+.featured-products-section{
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 16px 10px;
+  font-family: "Montserrat", sans-serif;
+  color: #111;
 }
 
-.highlight-text {
-    color: #4C9C6B; /* Màu xanh lá cây nổi bật */
-    font-weight: 700;
+/* header */
+.header h2{
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.header .subtitle{
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  text-transform: uppercase;
+}
+.header .highlight{
+  color: #7ED957;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
-.carousel-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
+/* carousel layout */
+.carousel-wrapper{
+  position: relative;
+  max-width: 2500px;
+  width: 106%;
+  margin: 40px auto;
+  overflow: visible;
+  padding: 0;
+  margin-left: -30px;
+  background: transparent;
+}
+
+/* navigation buttons - sử dụng mũi tên đúng kiểu */
+/*.nav-btn{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 18px;
+  color: #333;
+  transition: all 0.3s ease;
+  margin-right: -250px;
+  margin-left: 100px;
+  margin-top: -100px;
+}
+.nav-btn:hover{
+  background: #f5f5f5;
+  color: #000;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+.nav-btn.prev{ left: -60px; }
+.nav-btn.next{ right: -60px; }*/
+
+/* viewport: chỉ hiển thị 4 cards - QUAN TRỌNG: overflow hidden */
+.viewport{
+  overflow: hidden;
+  width: 100%; /* Cố định: 270*4 + 24*3 = 1152px */
+  position: relative;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+/* track: row flex kéo translateX */
+.track{
+  display:flex;
+  gap: 50px;
+  transition: transform 0.3s ease-in-out;
+  align-items: stretch;
+  padding-bottom: 10px;
+}
+
+.carousel-control {
+    position: absolute; /* Định vị tuyệt đối so với .carousel-wrapper */
+    top: 50%; /* Đặt phần trên của nút ở giữa theo chiều dọc */
+    transform: translateY(-50%); /* Dịch chuyển nút lên trên 50% chiều cao của nó để căn giữa hoàn hảo */
+
+    background-color: white; /* Màu nền trắng */
+    border: 1px solid #ccc; /* Viền nhẹ */
+    border-radius: 50%; /* Hình tròn */
+    width: 40px; /* Kích thước nút */
+    height: 40px;
     display: flex;
-    align-items: center; /* Căn nút điều khiển ngang hàng với slider */
-}
-
-.product-grid-wrapper {
-    /* Khung nhìn (Viewport) */
-    flex-grow: 1;
-    overflow: hidden; /* QUAN TRỌNG: Ẩn các card bên ngoài */
-    padding: 10px 0; /* Padding để các nút không dính sát */
-}
-
-.product-slider-track {
-    display: flex;
-    transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển slide */
-    /* Không cần justify-content: center ở đây */
-}
-
-.product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    flex-basis: 270px;
-    width: 270px;
-    margin-right: 20px;
-    flex-shrink: 0;
-    text-align: left;
-}
-
-/* --- Image: Chuyển thành Background Image --- */
-.product-image-container {
-    height: 300px; /* Đảm bảo có chiều cao cố định để info nằm bên dưới */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative; /* Dùng cho icon wishlist */
-    border-radius: 8px 8px 0 0; /* Bo góc trên */
-}
-
-/* --- Controls --- */
-.slide-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    color: #4C9C6B;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.slide-control.prev {
-    left: -20px; /* Đẩy ra ngoài container */
-}
-
-.slide-control.next {
-    right: -20px; /* Đẩy ra ngoài container */
-}
-
-.slide-control:disabled {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    z-index: 10; /* Đảm bảo nút nằm trên các thẻ sản phẩm */
+    transition: background-color 0.3s, border-color 0.3s;
     opacity: 0.5;
+}
+
+.carousel-control:hover:not([disabled]) {
+    background-color: #f0f0f0; /* Hiệu ứng hover */
+    border-color: var(--green-light);
+}
+
+.carousel-control[disabled] {
+    opacity: 0.5; /* Làm mờ nút khi bị vô hiệu hóa */
     cursor: not-allowed;
 }
 
-/* --- Info --- */
-.product-info {
-    padding: 15px;
+/* Icon bên trong nút */
+.carousel-control svg {
+    width: 20px; /* Kích thước icon */
+    height: 20px;
+    color: #000000; /* Màu icon */
 }
 
-.product-rating {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+/* Vị trí cụ thể của nút Prev */
+.prev-btn {
+    left: 0; /* Đặt nút Prev ở rìa trái của carousel-wrapper */
+    margin-left: 5px;
+    margin-top: -100px;
 }
 
-.star-icons .fa-star.full {
-    color: #ffd700; /* Màu vàng sao */
-    font-size: 12px;
+/* Vị trí cụ thể của nút Next */
+.next-btn {
+    right: 0; /* Đặt nút Next ở rìa phải của carousel-wrapper */
+    margin-right: 10px;
+    margin-top: -100px;
 }
 
-.star-icons .fa-star,
-.star-icons .fa-star-half-alt {
-    color: #ffc107; /* Màu vàng sao chuẩn */
-    font-size: 14px; /* Tăng kích thước sao */
+/* product card */
+.product-card{
+  width: 300px;
+  min-width: 240px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 18px;
+  background-color: transparent;
+  opacity: 1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition: all 0.3s ease;
 }
 
-.review-count {
-    font-size: 12px;
-    color: #666;
-    margin-left: 8px;
+/* image area */
+.product-card .media{
+  position: relative;
+  width:100%;
+  height: 450px;
+  overflow:hidden;
+  border-radius: 18px 18px 0 0;
+  background: #f8f8f8;
+}
+.product-card .media img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  display:block;
 }
 
-.product-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin: 5px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* wishlist heart top-right - TRẮNG OUTLINE */
+.wish-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background: black;
+  color: white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+.wish-btn:hover{
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+.wish-btn .fa-heart{
+  font-size:16px;
 }
 
-.product-price {
-    font-size: 18px;
-    font-weight: 700;
-    color: #4C9C6B; /* Giá màu xanh lá */
-    margin-bottom: 15px;
+/* meta/info under image */
+.meta{
+  padding: 12px 16px 18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height: 170px;
 }
 
-/* --- Button --- */
-.buy-now-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #fff;
-    color: #000000;
-    border: 2px solid #00BD16;
-    border-radius: 4px;
-    font-weight: bolder;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Montserrat', sans-serif;
+/* rating row: stars | reviews | quick MUA NGAY link (inline) */
+.rating-row{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 8px;
+  margin-bottom:8px;
 }
 
-.buy-now-button:hover {
-    background-color: #4C9C6B;
-    color: #fff;
+/* stars - MÀU ĐEN theo Figma */
+.stars{
+  display: flex;
+  gap: 2px;
+}
+.stars i, .rating-row .fa-star{
+  font-size: 14px;
+  color: #e0e0e0; /* off - màu xám nhạt */
+}
+.stars i.on, .rating-row .fa-star.on{
+  color: #7ED957; /* màu đen như Figma */
+}
+
+/* reviews small text */
+.reviews{
+  font-size: 14px;
+  color:#000000;
+  white-space:nowrap;
+  text-align: right;
+}
+
+/* quick small link (right of reviews) - màu xanh dương */
+.quick-buy{
+  margin-left:auto;
+  font-size:13px;
+  color:#4169e1; /* royal blue */
+  text-decoration:none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.quick-buy:hover{
+  color: #0047ab;
+  text-decoration: underline;
+}
+
+/* title */
+.title{
+  font-size: 16px;
+  font-weight: 700;
+  color:#111;
+  margin: 6px 0 4px;
+  line-height:1.25;
+  text-align:left;
+}
+
+/* price */
+.price{
+  font-size: 15px;
+  color:#333;
+  margin-bottom: 10px;
+  font-weight:600;
+}
+
+/* main buy button centered */
+.buy-btn{
+  align-self: center;
+  display:inline-block;
+  color:black;
+  padding:8px 92px;
+  border-radius:8px;
+  font-weight:700;
+  text-decoration:none;
+  transition: all .22s ease;
+  font-size: 14px;
+  border: 2px solid #7ED957;
+}
+.buy-btn:hover{
+  background:#7ED957;
+  color:#fff;
+}
+
+/* hover lift */
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* responsive adjustments */
+@media (max-width: 1024px) {
+    .carousel-wrapper {
+        max-width: calc((240px + 20px) * 3); /* (CARD_WIDTH + GAP) * 3 */
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-wrapper {
+        max-width: calc((240px + 20px) * 2); /* (CARD_WIDTH + GAP) * 2 */
+    }
+}
+
+@media (max-width: 500px) {
+    .carousel-wrapper {
+        max-width: calc(240px + 20px); /* (CARD_WIDTH + GAP) * 1 */
+        padding: 0 10px; /* Giảm padding */
+    }
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+        /* Điều chỉnh vị trí nút nếu padding giảm nhiều */
+    }
 }

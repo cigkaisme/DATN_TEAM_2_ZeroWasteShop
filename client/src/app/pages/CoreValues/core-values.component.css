@@ -1,0 +1,94 @@
+/* core-values.component.css */
+
+:root {
+    --green-light: #e6f5d8; /* Màu nền xanh lá nhạt */
+    --green-dark: #00a651;
+    --gap-h: 24px;
+}
+
+.core-values-section {
+    background-image: linear-gradient(
+        to bottom,
+        #aaf08f 50%,
+        #56923c 100%
+    );
+    padding: 60px 16px 0;
+    margin-top: 50px;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px var(--gap-h);
+    padding-bottom: 40px;
+}
+
+.value-item {
+    text-align: center;
+    padding: 0 10px;
+}
+
+.value-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.value-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 10px;
+    min-height: 3em;
+}
+
+.value-description {
+    font-size: 13px;
+    color: #000000;
+    line-height: 1.4;
+}
+
+.bottom-strip-wrapper {
+    background-color: #7ED957;
+    padding: 15px 0;
+    margin: 0 -113px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@keyframes autoScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.bottom-strip-content {
+    display: flex;
+    align-items: center;
+    animation: autoScroll 40s linear infinite;
+    width: 200%;
+}
+
+.strip-item {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 40px;
+    flex-shrink: 0;
+}
+
+.strip-item:last-child {
+    margin-right: 40px;
+}
