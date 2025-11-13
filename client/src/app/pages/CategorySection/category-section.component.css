@@ -162,7 +162,7 @@
     z-index: 5;
     opacity: 0;
     transition: opacity 0.5s ease;
-    pointer-events: none; /* Không chặn click vào ảnh */
+    pointer-events: initial;
 }
 
 /* Hiển thị khi hover vào thẻ sản phẩm */
@@ -190,19 +190,20 @@
     right: 15px;
     z-index: 10;
     display: flex;
-    flex-direction: column;
-    gap: 9px;
-    /* Mặc định ẩn, sẽ được hiện khi hover vào .product-card */
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    flex-direction: column; /* Xếp dọc */
+    gap: 10px;
+    opacity: 0; /* Mặc định ẩn, chỉ hiện khi hover */
+    transition: opacity 0.3s ease;
 }
 
-/* 2. Style chung cho các nút con */
+/* 2. HIỂN THỊ KHI HOVER */
+.product-card:hover .action-buttons {
+    opacity: 1;
+}
+
+/* 3. STYLE CHUNG CHO NÚT CON */
 .action-buttons .wish-btn,
 .action-buttons .add-cart-btn {
-    position: static;
-    top: auto;
-    right: auto;
     border: none;
     border-radius: 50%;
     width: 36px;
@@ -213,44 +214,56 @@
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: background 0.2s, transform 0.2s;
+    position: relative; /* Cần cho tooltip */
+    pointer-events: auto; /* Quan trọng để nút có thể click */
 }
 
-/* 3. Style cụ thể cho Wish Button */
+/* 4. STYLE CHO NÚT WISHLIST */
 .action-buttons .wish-btn {
-    background: #7ED957;
+    background: #ffffff;
 }
-/* Icon tim */
 .action-buttons .wish-btn i {
     font-size: 16px;
-    color: rgb(255, 255, 255);
+    color: #000000;
+    transition: color 0.2s;
 }
-/* Hiệu ứng khi hover vào chính nút Wish */
 .action-buttons .wish-btn:hover {
-    background: #43732E;
-    transform: scale(1.05);
+    background: #57d9cc;
+}
+.action-buttons .wish-btn:hover i {
+    color: white;
 }
 
-/* 4. Style cụ thể cho Add to Cart Button */
-.action-buttons .add-cart-btn {
-    background: #7ED957; /* #7ED957 */
-    position: relative; /* GIỮ LẠI relative để tooltip hoạt động đúng */
+.action-buttons .wish-btn.is-wished {
+    background: #7ED957; /* Màu nền đỏ nổi bật khi đã yêu thích */
 }
-/* Icon giỏ hàng */
+.action-buttons .wish-btn.is-wished i {
+    color: white; /* Icon trái tim đậm màu trắng */
+}
+
+/* --- Cập nhật hover cho trạng thái is-wished (tùy chọn) --- */
+.action-buttons .wish-btn.is-wished:hover {
+    background: #E04B50; /* Màu đỏ sẫm hơn khi hover */
+}
+
+/* 5. STYLE CHO NÚT ADD TO CART */
+.action-buttons .add-cart-btn {
+    background: #ffffff; /* Màu xanh lá cây nổi bật */
+}
 .action-buttons .add-cart-btn i {
     font-size: 16px;
-    color: #ffffff;
+    color: #000000;
 }
-/* Hiệu ứng khi hover vào chính nút Cart */
 .action-buttons .add-cart-btn:hover {
-    background: #43732E; /* #43732E */
+    background: #57d9cc;
     transform: scale(1.05);
 }
 
-/* 5. Hiển thị khối khi hover vào Product Card */
-.product-card:hover .action-buttons {
-    opacity: 1; /* Hiện cả khối action-buttons */
+.action-buttons .add-cart-btn:hover i {
+    color: white;
 }
 
+/* 6. TOOLTIP CHO NÚT ADD TO CART */
 .add-cart-btn .tooltip-text {
     visibility: hidden;
     width: 130px;
@@ -261,14 +274,20 @@
     padding: 5px 0;
     position: absolute;
     z-index: 11;
-    top: 5px;
+    top: 50%;
     right: 110%; /* Hiển thị bên trái nút */
+    transform: translateY(-50%);
     font-size: 10px;
     opacity: 0;
     transition: opacity 0.3s;
     white-space: nowrap;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.add-cart-btn:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Mũi tên tooltip */
@@ -281,12 +300,6 @@
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent transparent #333;
-}
-
-/* Hiện tooltip khi hover vào nút */
-.add-cart-btn:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
 }
 
 /* Product Label (Ví dụ: 'MỚI' hoặc 'SALE') */
@@ -413,4 +426,169 @@
     color: inherit;
     /* Đảm bảo thẻ a chiếm đúng không gian */
     display: block;
+}
+
+.buy-now-btn {
+    border: 1px solid #7ED957;
+    color: white;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 10px;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto !important;
+}
+
+.buy-now-btn:hover {
+    background-color: #7ED957;
+    color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #000000;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.product-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.product-name {
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.add-to-list-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.existing-list {
+  margin-bottom: 10px;
+}
+
+.existing-list label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  border: 1px solid #eee;
+}
+
+.existing-list label:hover {
+    background-color: #f7f7f7;
+}
+
+.existing-list input[type="checkbox"] {
+  margin-left: auto;
+  transform: scale(1.2);
+}
+
+.list-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.new-list-input {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.new-list-input input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.create-new-btn {
+  margin-top: 15px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-to-list-btn {
+    margin-top: -40px;
+    padding: 10px 35px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.add-to-list-btn[disabled] {
+    /* Sử dụng !important nếu màu chưa đổi do có style khác ghi đè */
+    background-color: #e0e0e0 !important; /* Màu xám mờ */
+    color: #a0a0a0 !important; /* Chữ màu xám nhạt */
+    cursor: not-allowed;
+    box-shadow: none;
 }

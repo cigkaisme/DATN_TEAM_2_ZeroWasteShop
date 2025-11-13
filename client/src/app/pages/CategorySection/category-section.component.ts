@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
+interface Wishlist {
+  id: number;
+  name: string;
+  items: number[]; // Lưu ID sản phẩm
+}
 interface Product {
     // Các thuộc tính có thể thiếu ở thẻ GIF/Video (Media Lớn)
     id?: number;
@@ -12,6 +18,7 @@ interface Product {
     reviewCount?: number;
     label?: string;
     hoverUrl?: string;
+    isWished?: boolean;
 
     // Các thuộc tính luôn có, hoặc chỉ có ở thẻ Media Lớn
     thumbnailUrl: string; // Đây là thuộc tính bắt buộc (vì tất cả các thẻ đều có ảnh)
@@ -25,12 +32,29 @@ interface Product {
 @Component({
   selector: 'app-category-section',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './category-section.component.html',
   styleUrls: ['./category-section.component.css'],
 })
 export class CategorySectionComponent {
   Math = Math;
+
+  isModalVisible: boolean = false;
+  selectedProduct: Product | any = {};
+  newListName: string = '';
+  showNewListInput: boolean = false;
+
+  wishlistLists: Wishlist[] = [
+    { id: 1, name: 'My Wishlist', items: [] },
+    { id: 2, name: 'Quà tặng bạn bè', items: [] }
+  ];
+
+  get isAnyListSelected(): boolean {
+      const productId = this.selectedProduct?.id;
+      if (!productId) return false;
+
+      return this.wishlistLists.some(list => list.items.includes(productId));
+  }
 
   categories = [
    {
@@ -147,7 +171,6 @@ export class CategorySectionComponent {
   constructor(public router: Router) {}
 
   ngOnInit() {
-    // Gọi hàm tạo slug khi component khởi tạo
     this.processProducts();
   }
 
@@ -171,16 +194,20 @@ export class CategorySectionComponent {
 
   processProducts() {
     this.categories.forEach(category => {
-      category.products.forEach(product => {
-        if (product.name) {
-          product.slug = this.createSlug(product.name);
-        }
-      });
+        category.products.forEach(product => {
+            if (product.name) {
+                product.slug = this.createSlug(product.name);
+            }
+
+            const p = product as Product;
+
+            if (p.id !== undefined && p.isWished === undefined) {
+                p.isWished = false;
+            }
+        });
     });
   }
 
-
-  // Hàm xử lý click và điều hướng
   navigateToProduct(product: Product, event: Event) {
     // 1. Ngăn chặn điều hướng nếu click vào nút Wishlist
     const target = event.target as HTMLElement;
@@ -198,9 +225,118 @@ export class CategorySectionComponent {
         this.router.navigate(['/product', product.id]);
     }
     // Nếu cả hai đều không tồn tại (thẻ Media Lớn), không làm gì cả.
-}
+  }
+
+  addToCart(product: Product): void {
+        if (product.id && product.name) {
+            console.log(`Đã thêm sản phẩm: ${product.name} (ID: ${product.id}) vào giỏ hàng.`);
+            // TODO: Triển khai logic thực tế (gọi CartService)
+            // if (this.cartService) {
+            //     this.cartService.addItem(product);
+            // }
+            alert(`Đã thêm ${product.name} vào giỏ hàng!`);
+        } else {
+            console.warn('Không thể thêm sản phẩm không có ID/Name vào giỏ hàng.');
+        }
+  }
+
+  toggleWishlist(product: Product): void {
+    if (product.name) {
+        // Đảo ngược trạng thái isWished
+        product.isWished = !product.isWished;
+
+        if (product.isWished) {
+            console.log(`Đã thêm sản phẩm: ${product.name} vào danh sách yêu thích.`);
+            // TODO: Triển khai logic thực tế (gọi WishlistService để lưu trữ)
+            alert(`Sản phẩm ${product.name} đã được thêm vào danh sách yêu thích!`);
+        } else {
+            console.log(`Đã xóa sản phẩm: ${product.name} khỏi danh sách yêu thích.`);
+            // TODO: Triển khai logic thực tế (gọi WishlistService để xóa)
+            alert(`Sản phẩm ${product.name} đã được xóa khỏi danh sách yêu thích.`);
+        }
+    } else {
+        console.warn('Không thể thêm sản phẩm không có tên vào danh sách yêu thích.');
+    }
+  }
 
   getStars(rating: number): number[] {
     return Array(5).fill(0);
+  }
+
+  openWishlistModal(product: Product) {
+    // Đảm bảo chỉ mở modal cho sản phẩm có ID (sản phẩm thường)
+    if (!product.id) return;
+
+    // Truyền dữ liệu sản phẩm được click
+    this.selectedProduct = product;
+    this.isModalVisible = true;
+  }
+
+  closeWishlistModal() {
+    this.isModalVisible = false;
+    this.newListName = ''; // Reset input
+    this.selectedProduct = {};
+    this.showNewListInput = false;
+  }
+
+  toggleNewListInput() {
+    this.showNewListInput = true;
+  }
+
+  createNewList() {
+    if (this.newListName.trim() && this.selectedProduct.id) {
+      const newListId = this.wishlistLists.length + 1;
+      const newList: Wishlist = {
+        id: newListId,
+        name: this.newListName.trim(),
+        items: [this.selectedProduct.id]
+      };
+      this.wishlistLists.push(newList);
+      alert(`Đã tạo danh sách "${this.newListName}" và thêm ${this.selectedProduct.name}.`);
+      this.newListName = ''; // Clear input
+
+      // Cập nhật trạng thái isWished cho sản phẩm (nếu đây là list đầu tiên)
+      this.selectedProduct.isWished = true;
+
+      this.newListName = '';
+      this.showNewListInput = false;
+    } else if (!this.newListName.trim()) {
+       alert('Vui lòng nhập tên danh sách.');
+    }
+  }
+
+  addSelectedToLists() {
+      if (this.isAnyListSelected) {
+          this.closeWishlistModal();
+      }
+  }
+
+  toggleItemInList(list: Wishlist, productId: number, isChecked: boolean) {
+    const itemIndex = list.items.indexOf(productId);
+
+    if (isChecked && itemIndex === -1) {
+      // Add to list
+      list.items.push(productId);
+    } else if (!isChecked && itemIndex !== -1) {
+      // Remove from list
+      list.items.splice(itemIndex, 1);
+    }
+
+    // Kiểm tra và cập nhật trạng thái isWished chung
+    this.updateProductWishStatus(productId);
+  }
+
+  updateProductWishStatus(productId: number) {
+    // Kiểm tra xem sản phẩm có trong bất kỳ danh sách nào không
+    const isWished = this.wishlistLists.some(list => list.items.includes(productId));
+
+    this.categories.forEach(category => {
+      category.products.forEach(product => {
+        if (product.id === productId) {
+          const fullProduct = product as Product;
+          fullProduct.isWished = isWished;
+        }
+      });
+    });
   }
 }
