@@ -1,0 +1,71 @@
+<div class="intro-section">
+    <div class="container">
+        <h2 class="intro-title">CHÚNG TÔI SẼ GIÚP BẠN THAY ĐỔI THÓI QUEN NGAY TỪ BÂY GIỜ</h2>
+        <p class="intro-subtitle">TỪ THÓI QUEN NHỎ, TẠO NÊN THAY ĐỔI LỚN CHO HÀNH TINH.</p>
+
+        <hr>
+
+        <p class="intro-commitment">
+            Tham gia <strong>cộng đồng hơn 100.000 người</strong> của chúng tôi để thực hiện
+            những thay đổi nhỏ, đầy ý nghĩa, và có tác động lớn nhằm giảm thiểu rác thải.
+        </p>
+
+        <div class="review-area">
+            <div class="rating-and-bars-wrapper">
+
+                <div class="rating-score-summary">
+                    <div class="score-display">
+                        <span class="rating-score">{{ reviewSummary.averageRating | number:'1.2-2' }}</span>
+                        <span class="score-out-of"> / </span>
+                        <span class="score-out-of"> 5</span>
+                        <i class="fas fa-star green-star"></i>
+                    </div>
+                    <p class="rating-base">Dựa trên <strong>{{ reviewSummary.totalReviews | number:'1.0-0' }} đánh giá</strong></p>
+                </div>
+
+                <div class="rating-bars">
+                    <div *ngFor="let item of allStarCounts" class="bar-row">
+                        <span class="rating-level">{{ item.stars }}★</span>
+                        <div class="bar-fill-track">
+                            <div class="bar-fill" [style.width.%]="item.width"></div>
+                        </div>
+                        <span class="bar-count">{{ item.count | number:'1.0-0' }}</span>
+                    </div>
+                </div>
+            </div>
+
+              <div class="review-slider-section">
+
+    <div class="review-display-container" *ngIf="reviews && reviews.length > 0">
+
+        <div
+            class="review-track"
+            [style.transform]="'translateX(' + (-currentReviewIndex * 100) + '%)'"
+        >
+            <div class="customer-review-card" *ngFor="let review of reviews">
+                <p class="review-quote">{{ review.quote }}</p>
+
+                <div class="reviewer-info">
+                    <div class="stars-rating">
+                        <i *ngFor="let i of [].constructor(review.rating)" class="fas fa-star filled"></i>
+                        <i *ngFor="let i of [].constructor(5 - review.rating)" class="fas fa-star empty"></i>
+                    </div>
+
+                    <p class="reviewer-name">
+                        — {{ review.reviewerName }} —
+                        <span *ngIf="review.isVerified" class="verified-badge">
+                            <i class="fas fa-check-circle"></i> Đã mua hàng
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!reviews || reviews.length === 0" class="no-reviews-placeholder">
+        Hiện chưa có đánh giá nào.
+    </div>
+</div>
+        </div>
+    </div>
+</div>

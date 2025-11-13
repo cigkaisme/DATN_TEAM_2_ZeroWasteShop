@@ -1,0 +1,52 @@
+<section class="hero-commitment-block-wrapper">
+    <div class="content-container">
+
+        <header class="section-header">
+            <p class="tagline">GIEO MẦM SỐNG XANH, THU HOẠCH HẠNH PHÚC.</p>
+            <h1>NƠI TƯƠNG LAI BẮT NGUỒN TỪ HIỆN TẠI: VÌ MỘT HÀNH TINH BẠN MUỐN THẤY!</h1>
+            <p class="sub-tag">BẠN KHÔNG CÔ ĐƠN TRÊN HÀNH TRÌNH NÀY. CHÚNG TÔI SẼ ĐỒNG HÀNH CÙNG BẠN</p>
+        </header>
+
+        <div class="banner-grid">
+            <div class="grid-card" *ngFor="let banner of banners" [style.background-image]="'url(' + banner.imageUrl + ')'">
+                <div class="overlay">
+                    <h3 class="card-title">{{ banner.title }}</h3>
+                    <p class="card-description">{{ banner.description }}</p>
+                    <a [routerLink]="banner.link" class="card-cta">{{ banner.ctaText }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="commitment-section-inner">
+            <div class="illustration-left">
+                <img src="assets/icons/hero-commitments/cay_xanh.png" alt="Cây non trong tay" class="img-plant">
+                <img src="assets/icons/hero-commitments/vai_bong.png" alt="Vải bông" class="img-soap">
+                <img src="assets/icons/hero-commitments/do_dung_bep.png" alt="Đồ dùng bếp" class="img-utensils">
+                <img src="assets/icons/hero-commitments/do_dung_bep_2.png" alt="Đồ dùng bếp 2" class="img-kitchen">
+                <img src="assets/icons/hero-commitments/bo_dung_cu_an_uong.png" alt="Bộ dụng cụ ăn uống" class="img-eating-kit">
+            </div>
+
+            <div class="main-text-content">
+                <p class="pre-title">BẠN VẪN CÒN NGẦN NGẠI?</p>
+                <h2 class="title">CAM KẾT CHO NGƯỜI MỚI BẮT ĐẦU!</h2>
+
+                <p class="description">
+                    Bạn không chắc sản phẩm thiên nhiên có phù hợp? Đừng lo. Nếu bạn không hài lòng với <a href="#">bộ Starter Kit</a> đầu tiên, chúng tôi <strong>cam kết hoàn tiền 100% TRONG 30 NGÀY.</strong>
+                </p>
+
+                <button class="cta-button">
+                    BẮT ĐẦU KHÔNG RỦI RO!
+                </button>
+            </div>
+
+            <div class="illustration-right">
+                <img src="assets/icons/hero-commitments/xe_dap.png" alt="Người đi xe đạp giao hàng" class="img-bike">
+                <img src="assets/icons/hero-commitments/ban_chai_tre.png" alt="Bộ bàn chải tre" class="img-brush-set">
+                <img src="assets/icons/hero-commitments/tui_rau.png" alt="Túi vải đựng rau củ" class="img-tote">
+                <img src="assets/icons/hero-commitments/cart.png" alt="Gior hàng xanh" class="img-cart">
+                <img src="assets/icons/hero-commitments/rua_xe.png" alt="Cleaning" class="img-clean">
+            </div>
+        </div>
+
+    </div>
+</section>

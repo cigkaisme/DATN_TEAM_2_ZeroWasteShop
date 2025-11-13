@@ -1,0 +1,103 @@
+/* --- Khối Banner Starter Kit --- */
+:root {
+    --green-dark: #43732E;
+    --green-light: #7ED957; /* Dùng cho button CTA */
+    --banner-bg: #95C984; /* Màu xanh lá cây nhạt cho nền banner */
+}
+
+.starter-kit-section-wrapper {
+    background-image: linear-gradient(
+        to bottom,
+        #aaf08f 50%,
+        #56923c 100%
+    );
+    max-width: auto;
+    margin: 40px auto 60px auto;
+    padding: 0 16px;
+}
+
+.starter-kit-container {
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.content-media-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 80px;
+    background-color: var(--banner-bg);
+    min-height: 500px; /* Đảm bảo chiều cao tối thiểu cho banner */
+}
+
+/* --- Nội dung Chữ --- */
+.text-content {
+    max-width: 45%;
+    color: var(--green-dark); /* Màu chữ tối */
+}
+
+.tagline {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.tagline a {
+    font-weight: bolder;
+    color: rgb(44, 167, 244);
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: black; /* Đảm bảo tiêu đề nổi bật */
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* --- Nút CTA --- */
+.cta-button {
+    display: inline-block;
+    background-color: #7ED957;
+    color: white;
+    border: 1px solid black;
+    padding: 12px 50px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+    background-color: #43732E;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --- Nội dung Media (Ảnh) --- */
+.media-content {
+    max-width: 65%;
+    height: 100%;
+    /* Sử dụng flex để căn ảnh giữa nếu cần */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Căn ảnh sang phải */
+}
+
+.media-content img {
+    max-height: 700px; /* Giới hạn chiều cao ảnh theo chiều cao banner */
+    width: 1200px;
+    object-fit: contain;
+    /* Dịch chuyển ảnh lên/xuống hoặc ra khỏi lề nếu cần */
+    transform: translateY(-8px);
+    transform: translateX(80px);
+}

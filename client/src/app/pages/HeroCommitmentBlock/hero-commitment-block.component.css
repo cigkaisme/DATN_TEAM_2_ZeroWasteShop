@@ -1,0 +1,231 @@
+/* --- Khối Tổng Thể --- */
+.hero-commitment-block-wrapper {
+    padding-top: 80px;
+    padding-bottom: 100px;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+    background-image: linear-gradient(
+      to left,
+      #B8DCEF 40%,
+      rgb(241, 240, 240) 80%
+    );
+}
+
+.content-container {
+    max-width: auto;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* --- Header Lớn --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.tagline {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--green-dark);
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.section-header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #00BD16;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sub-tag {
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* --- Khối 4 Banner Grid --- */
+.banner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 80px;
+}
+
+.grid-card {
+    position: relative;
+    height: 500px; /* Chiều cao cố định cho mỗi banner */
+    border-radius: 12px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-description {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.card-cta {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+    position: relative;
+    border-bottom: none;
+    transition: color 0.3s;
+}
+
+.card-cta::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Gạch chân nằm sát đáy */
+    left: 0;
+    width: 100%; /* Bắt đầu gạch chân có độ rộng đầy đủ */
+    height: 2px;
+    background-color: #7ED957; /* Màu gạch chân */
+    transform: translateX(0);
+    transition: transform 0.3s ease-out, width 0.3s ease-out; /* Thêm transition */
+}
+
+.card-cta:hover {
+    color: var(--green-light); /* Chữ vẫn giữ màu ban đầu (tùy chọn) */
+}
+
+.card-cta:hover::after {
+    transform: translateX(100%);
+    width: 0;
+}
+
+/* --- PHẦN CAM KẾT HOÀN TIỀN (Giữ nguyên style từ trước) --- */
+.commitment-section-inner {
+  background: #B8DCEF;
+    background: linear-gradient(
+      90deg,
+      rgba(184, 220, 239, 1) 0%,
+      rgba(87, 199, 133, 1) 65%,
+      rgba(83, 193, 237, 1) 100%
+    );
+    max-width: 1000px; /* Giới hạn chiều rộng cho khối cam kết */
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 60px 0;
+    border-radius: 12px;
+    margin-top: 80px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.main-text-content {
+    max-width: 450px;
+    text-align: center;
+    padding: 20px;
+    z-index: 5;
+}
+
+.pre-title { color: #000000; font-weight: 500; margin-bottom: -10px; }
+
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 15px;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.description a {
+    color: #000000;
+}
+
+.description strong {
+    font-weight: 800;
+    color: var(--green-dark);
+}
+
+.cta-button {
+    background-color: #7ED957;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #000000;
+}
+
+.cta-button:hover {
+    background-color: var(--green-dark);
+}
+
+/* --- VỊ TRÍ ẢNH MINH HỌA (Điều chỉnh lại tọa độ cho phù hợp với bố cục tổng thể mới) --- */
+
+.illustration-left, .illustration-right {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Di chuyển khối trái ra xa hơn */
+.illustration-left {
+    left: 50%;
+    transform: translateX(-470px);
+}
+
+/* Di chuyển khối phải ra xa hơn */
+.illustration-right {
+    right: 50%;
+    transform: translateX(470px);
+}
+
+.img-plant { position: absolute; width: 80px; top: -60px; left: -15px; transform: rotate(-10deg);}
+.img-soap { position: absolute; width: 120px; bottom: -100px; left: -80px; }
+.img-utensils { position: absolute; width: 80px; top: -30px; left: 250px; transform: rotate(20deg);}
+.img-eating-kit { position: absolute; width: 150px; top: 300px; left: 250px; transform: rotate(10deg);}
+
+.img-bike { position: absolute; width: 250px; bottom: -50px; right: 5px; }
+.img-brush-set { position: absolute; width: 180px; top: 20px; right: -80px; transform: rotate(10deg);}
+.img-tote { position: absolute; width: 140px; bottom: -250px; right: 120px; transform: rotate(-10deg);}
+.img-cart { position: absolute; width: 100px; bottom: 200px; right: -60px; transform: rotate(0deg);}
+.img-clean { position: absolute; width: 150px; bottom: 60px; right: 250px; transform: rotate(-40deg);}

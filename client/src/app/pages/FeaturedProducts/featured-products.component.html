@@ -1,0 +1,174 @@
+<section class="featured-products-section">
+  <div class="header text-center">
+    <h2>HÀNH TRÌNH CỦA BẠN BẮT ĐẦU TỪ ĐÂY:</h2>
+    <p class="subtitle">
+      Hãy bắt đầu ngay với
+      <a href="#" class="highlight">BỘ SẢN PHẨM CƠ BẢN</a>
+      của chúng tôi!
+    </p>
+  </div>
+
+  <div class="carousel-wrapper">
+    <button class="carousel-control prev-btn" (click)="prevSlide()" [disabled]="!canGoPrev">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+    <div class="viewport">
+      <div class="track" [style.transform]="'translateX(' + (-currentIndex * (CARD_WIDTH + GAP)) + 'px)'">
+        <article class="product-card" *ngFor="let product of products">
+          <div class="media">
+            <img [src]="product.thumbnailUrl" [alt]="product.name" />
+            <button
+              class="wish-btn"
+              aria-label="wishlist"
+              (click)="openWishlistModal(product)"
+              [class.is-wished]="product.isWished"
+            >
+              <i class="fa-{{ product.isWished ? 'solid' : 'regular' }} fa-heart"></i>
+            </button>
+          </div>
+
+          <div class="meta" (click)="navigateToProductDetail(product, $event)">
+            <div class="rating-row">
+              <div class="stars">
+                <ng-container *ngFor="let s of [1,2,3,4,5]; let i = index">
+                  <i class="fa fa-star" [class.on]="i < Math.round(product.averageRating)"></i>
+                </ng-container>
+              </div>
+              <div class="reviews">{{ product.reviewCount }} reviews</div>
+            </div>
+
+            <h3 class="title">{{ product.name }}</h3>
+            <div class="price">{{ product.price | number }} đ</div>
+
+            <a (click)="openQuickBuyModal(product, $event)" class="buy-btn">MUA NGAY</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <button class="carousel-control next-btn" (click)="nextSlide()" [disabled]="!canGoNext">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+  </div>
+</section>
+
+<div class="modal-overlay" *ngIf="isModalVisible" (click)="closeWishlistModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+            <img [src]="selectedProduct.thumbnailUrl" alt="Product Image" class="product-thumb" />
+            <h3 class="product-name">{{ selectedProduct.name || 'Sản phẩm' }}</h3>
+            <button class="close-btn" (click)="closeWishlistModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <p class="add-to-list-title">Thêm vào Danh sách</p>
+
+            <div class="existing-list" *ngFor="let list of wishlistLists">
+                <label>
+                    <img src="assets/images/logo/list_icon.png" alt="List Icon" class="list-icon">
+                    {{ list.name }}
+                    <input type="checkbox"
+                        [checked]="list.items.includes(selectedProduct.id)"
+                        (change)="toggleItemInList(list, selectedProduct.id, $event.target.checked)">
+                </label>
+            </div>
+
+            <div class="new-list-creation-inline" *ngIf="showNewListInput">
+                <div class="new-list-input-group">
+                    <img src="assets/images/logo/list_icon.png" alt="List Icon Placeholder" class="list-icon-placeholder">
+                    <input
+                        type="text"
+                        [(ngModel)]="newListName"
+                        placeholder="Tên Danh sách mới"
+                        (keyup.enter)="createNewList()"
+                    >
+                </div>
+            </div>
+
+            <div class="create-list-placeholder" *ngIf="!showNewListInput">
+                <button
+                    class="create-new-btn"
+                    (click)="toggleNewListInput()">
+                    CREATE NEW LIST
+                </button>
+            </div>
+
+        </div> <div class="modal-footer">
+            <button
+                class="add-to-list-btn"
+                [disabled]="!isAnyListSelected && (!showNewListInput || !newListName.trim())"
+                [class.is-disabled]="!isAnyListSelected && (!showNewListInput || !newListName.trim())"
+                (click)="showNewListInput ? createNewList() : addSelectedToLists()"
+            >
+                ADD TO LIST
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Quick Buy Modal -->
+<div class="modal-overlay quick-buy-overlay" *ngIf="isQuickBuyModalVisible" (click)="closeQuickBuyModal()">
+    <div class="modal-content quick-buy-modal" (click)="$event.stopPropagation()">
+
+        <!-- Header -->
+        <div class="modal-header">
+            <img [src]="selectedQuickBuyProduct?.thumbnailUrl"
+                 alt="Product Image"
+                 class="product-thumb-large" />
+            <div class="product-info-header">
+                <h3 class="product-name-large">{{ selectedQuickBuyProduct?.name }}</h3>
+                <p class="product-price-large">{{ selectedQuickBuyProduct?.price | number }} đ</p>
+            </div>
+            <button class="close-btn" (click)="closeQuickBuyModal()">×</button>
+        </div>
+
+        <div class="modal-body quick-buy-body">
+
+            <!-- Attributes Selection -->
+            <div class="attributes-section" *ngIf="selectedQuickBuyProduct?.attributes && selectedQuickBuyProduct.attributes.length > 0">
+                <div class="attribute-group" *ngFor="let attr of selectedQuickBuyProduct.attributes">
+                    <label class="attribute-label">{{ attr.name | uppercase }}:</label>
+                    <div class="attribute-options">
+                        <button
+                            class="attribute-option-btn"
+                            *ngFor="let option of attr.options"
+                            [class.selected]="isAttributeSelected(attr.name, option)"
+                            (click)="selectAttribute(attr.name, option)">
+                            <span class="option-icon" *ngIf="attr.name === 'Màu'">
+                                <span class="color-dot" [style.background-color]="getColorCode(option)"></span>
+                            </span>
+                            {{ option }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="payment-info">
+                <p class="payment-text">
+                    <i class="fab fa-cc-visa"></i>
+                    Pay over time for orders over <strong>$35.00</strong> with
+                    <img src="assets/images/shoppay-logo.png" alt="ShopPay" class="shoppay-logo">
+                    <a href="#" class="learn-more">Learn more</a>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="modal-footer quick-buy-footer">
+            <button class="quick-buy-btn" (click)="handleQuickBuy()">
+                MUA NGAY
+            </button>
+            <a [routerLink]="['/product', selectedQuickBuyProduct?.slug]"
+               class="view-details-link"
+               (click)="closeQuickBuyModal()">
+                Xem chi tiết đầy đủ <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </div>
+</div>

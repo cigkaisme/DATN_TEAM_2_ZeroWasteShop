@@ -1,79 +1,429 @@
 <header class="header-container">
   <div class="top-banner">
     <div class="top-banner-slider">
-        <div class="slider-text">
-            <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
-            <span class="separator">|</span>
-            <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
-            <span class="separator">|</span>
-            <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste Shop</strong>.</span>
+      <div class="slider-text">
+        <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
+        <span class="separator">|</span>
+        <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
+        <span class="separator">|</span>
+        <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste
+            Shop</strong>.</span>
 
-            <span class="separator">|</span>
-            <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
-            <span class="separator">|</span>
-            <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
-            <span class="separator">|</span>
-            <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste Shop</strong>.</span>
-        </div>
+        <span class="separator">|</span>
+        <span class="message-item">Vì một <strong style="color:red;">VIỆT NAM</strong> không rác thải nhựa.</span>
+        <span class="separator">|</span>
+        <span class="message-item">Hãy cùng chúng tôi <strong style="color:red;">HÀNH ĐỘNG</strong> ngay hôm nay!</span>
+        <span class="separator">|</span>
+        <span class="message-item">Chọn sản phẩm thân thiện với môi trường tại <strong style="color:red;">Zero Waste
+            Shop</strong>.</span>
+      </div>
     </div>
-</div>
+  </div>
   <nav class="navigation-bar main-nav-row">
     <div class="nav-container">
 
-        <div class="logo logo-large">
-            <a routerLink="/trang-chu">
-                <img class="logo-image" src="/assets/images/logo/zerowasteshop_logo.png" alt="Zero Waste Shop Logo">
-            </a>
-        </div>
+      <div class="logo logo-large">
+        <a routerLink="/trang-chu">
+          <img class="logo-image" src="/assets/images/logo/zerowasteshop_logo.png" alt="Zero Waste Shop Logo">
+        </a>
+      </div>
 
-        <div class="search-bar-container">
-            <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" style="font-family: Montserrat;">
-            <button class="search-button"><i class="fas fa-search"></i></button>
-        </div>
+      <div class="search-bar-container">
+        <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" style="font-family: Montserrat;">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+      </div>
 
-        <div class="nav-icons nav-icons-large">
-            <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
-            <a routerLink="/gio-hang" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
-            <a routerLink="/yeu-thich" class="nav-icon"><i class="fas fa-heart"></i></a>
-        </div>
+      <div class="nav-icons nav-icons-large">
+        <a routerLink="/tai-khoan" class="nav-icon"><i class="fas fa-user"></i></a>
+        <span class="nav-icon cart-trigger-icon" (click)="toggleCartPopup()">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+        <span class="nav-icon wishlist-trigger-icon" (click)="toggleWishlistDropdown()">
+          <i class="fas fa-heart"></i>
+        </span>
+      </div>
 
     </div>
-</nav>
+  </nav>
 
-<nav class="navigation-bar sub-nav-row">
+  <nav class="navigation-bar sub-nav-row">
     <div class="nav-container">
-        <ul class="sub-nav-menu">
-            <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
-            <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
-            <li><a routerLink="/danh-muc" class="sub-nav-link"><i class="fas fa-list-ul"></i> DANH MỤC</a></li>
-            <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a></li>
-            <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU THÍCH</a></li>
-        </ul>
+      <ul class="sub-nav-menu">
+        <li><a routerLink="/trang-chu" class="sub-nav-link"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
+        <li><a routerLink="/san-pham" class="sub-nav-link"><i class="fas fa-leaf"></i> TẤT CẢ SẢN PHẨM</a></li>
+
+        <li (click)="toggleSideMenu()" class="sub-nav-item">
+          <a class="sub-nav-link dropdown-toggle">
+            <i class="fas fa-list-ul"></i> DANH MỤC <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </a>
+        </li>
+
+        <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a>
+        </li>
+        <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU
+            THÍCH</a></li>
+      </ul>
     </div>
-</nav>
+  </nav>
+
+  <div class="side-menu-overlay" [class.active]="isMenuOpen" (click)="toggleSideMenu()"></div>
+
+  <div class="side-menu-panel" [class.active]="isMenuOpen">
+    <div class="menu-header">
+      <span class="menu-title">DANH MỤC SẢN PHẨM</span>
+      <button class="close-btn" (click)="toggleSideMenu()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <ul class="side-menu-list">
+      <li class="menu-section-title">CHĂM SÓC CÁ NHÂN</li>
+      <li><a routerLink="/danh-muc/cham-soc-toc">Chăm Sóc Tóc</a></li>
+      <li><a routerLink="/danh-muc/ve-sinh-rang-mieng">Vệ Sinh Răng Miệng</a></li>
+      <li><a routerLink="/danh-muc/tam-co-the">Tắm & Cơ Thể</a></li>
+
+      <li class="menu-divider"></li>
+
+      <li class="menu-section-title">ĐỒ DÙNG GIA ĐÌNH</li>
+      <li><a routerLink="/danh-muc/nha-bep">Nhà Bếp</a></li>
+      <li><a routerLink="/danh-muc/ve-sinh-nha-cua">Vệ Sinh Nhà Cửa</a></li>
+
+      <li class="menu-divider"></li>
+
+      <li class="menu-section-title">TÁI SỬ DỤNG</li>
+      <li><a routerLink="/danh-muc/mang-di-on-the-go">Mang Đi (On-the-Go)</a></li>
+      <li><a routerLink="/danh-muc/ho-tro-mua-sam">Hỗ Trợ Mua Sắm</a></li>
+      <li><a routerLink="/danh-muc/dung-va-luu-tru">Đựng & Lưu Trữ</a></li>
+      <li><a routerLink="/danh-muc/vai-va-bong">Vải & Bông</a></li>
+
+      <li class="menu-section-title"><a routerLink="/starter-kit">STARTER KIT</a></li>
+    </ul>
+  </div>
 
   <section class="hero-banner" role="banner">
     <div class="hero-overlay">
       <div class="hero-slider-track">
 
-          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_1.jpg');"></div>
+        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_1.jpg');"></div>
 
-          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_2.jpeg');"></div>
+        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_2.jpeg');"></div>
 
-          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_3.png');"></div>
+        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_3.png');"></div>
 
-          <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_4.png');"></div>
+        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_4.png');"></div>
 
       </div>
       <div class="hero-content">
 
-          <h1 class="hero-title">Việt Nam tạo ra khoảng 60 nghìn tấn rác thải mỗi ngày!</h1>
+        <h1 class="hero-title">Việt Nam tạo ra khoảng 60 nghìn tấn rác thải mỗi ngày!</h1>
 
-          <p class="hero-subtitle">Đã đến lúc chúng ta phải suy nghĩ lại về cách tiêu dùng.</p>
+        <p class="hero-subtitle">Đã đến lúc chúng ta phải suy nghĩ lại về cách tiêu dùng.</p>
 
-          <a routerLink="/san-pham" class="hero-cta">MUA SẢN PHẨM BÁN CHẠY</a>
+        <a routerLink="/san-pham" class="hero-cta">MUA SẢN PHẨM BÁN CHẠY</a>
 
       </div>
     </div>
   </section>
+
+  <div class="wishlist-modal-overlay" *ngIf="isWishlistDropdownVisible || isWishlistDetailVisible"
+    (click)="isWishlistDetailVisible ? backToWishlistDropdown() : toggleWishlistDropdown()">
+
+    <div class="wishlist-dropdown-content" *ngIf="isWishlistDropdownVisible" (click)="$event.stopPropagation()">
+
+      <div class="modal-header-top">
+        <span class="user-email">{{ username }}</span>
+        <button class="close-btn" (click)="toggleWishlistDropdown()">×</button>
+      </div>
+
+      <h2 class="wishlist-main-title">My Wishlists</h2>
+
+      <div class="wishlist-card" *ngFor="let list of wishlists">
+        <div class="card-inner" (click)="viewWishlistDetail(list)">
+
+          <ng-container *ngIf="list.items.length > 0">
+            <img [src]="getFirstProductThumbnail(list)" alt="Product Thumbnail" class="list-thumb" />
+          </ng-container>
+          <ng-container *ngIf="list.items.length === 0">
+            <div class="list-thumb list-thumb-placeholder"></div>
+          </ng-container>
+
+          <div class="list-info">
+            <h3>{{ list.name }}</h3>
+            <p>{{ list.items.length }} product{{ list.items.length !== 1 ? 's' : '' }}</p>
+            <button class="view-list-btn">VIEW LIST</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="wishlist-detail-content" *ngIf="isWishlistDetailVisible" (click)="$event.stopPropagation()">
+
+      <div class="modal-header-top detail-header-top">
+        <span class="user-email">{{ username }}</span>
+        <button class="close-btn" (click)="toggleWishlistDropdown()">×</button>
+      </div>
+
+      <button class="back-btn" (click)="backToWishlistDropdown()">BACK</button>
+
+      <div class="list-header-detail">
+        <h2 class="wishlist-main-title-detail">My Wishlists</h2>
+
+        <div class="list-header-content-wrapper">
+
+          <!-- Dropdown chuyển list -->
+          <div class="list-title-dropdown" (click)="toggleListDropdown($event)">
+            <img [src]="getFirstProductThumbnail(selectedWishlist!)" alt="List Thumbnail" class="list-title-thumb"
+              *ngIf="selectedWishlist?.items.length > 0">
+            <span class="list-title-text">{{ selectedWishlist?.name }}</span>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+
+            <div class="list-selector-popover" *ngIf="isListDropdownVisible" (click)="$event.stopPropagation()">
+
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search list..." class="search-list-input" [value]="listSearchTerm"
+                  (input)="onListSearch($event)">
+              </div>
+
+              <div class="list-options">
+                <div class="list-option-item" *ngFor="let list of filteredWishlists"
+                  (click)="selectAnotherWishlist(list)">
+                  <img [src]="getFirstProductThumbnail(list)" alt="List Thumbnail" class="list-thumb-icon">
+                  <span class="list-name-text">{{ list.name }}</span>
+                  <i class="fas fa-check" *ngIf="list.id === selectedWishlist?.id"></i>
+                </div>
+
+                <div class="no-results" *ngIf="filteredWishlists.length === 0">
+                  No lists found for "{{ listSearchTerm }}"
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action buttons (Share & More) -->
+          <div class="action-buttons">
+            <button class="share-btn" (click)="openShareModal()"><i class="fas fa-share-alt"></i></button>
+            <button class="more-btn" (click)="toggleMorePopover($event)">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+
+            <!-- More Popover Menu -->
+            <div class="more-popover-menu" *ngIf="isMorePopoverVisible" (click)="$event.stopPropagation()">
+              <div class="popover-arrow"></div>
+              <div class="menu-item" (click)="duplicateList()">
+                <i class="far fa-copy"></i> <span>Duplicate List</span>
+              </div>
+              <div class="menu-item delete-item" (click)="deleteList()">
+                <i class="fas fa-trash-alt"></i> <span>Delete List</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-in-list" *ngIf="selectedProductDetail">
+        <img [src]="selectedProductDetail.thumbnailUrl" alt="Product Image" class="product-full-img" />
+        <div class="product-meta">
+          <h3 class="product-detail-name">{{ selectedProductDetail.name }}</h3>
+          <p class="product-detail-desc">1 bánh</p>
+          <div class="product-detail-price">{{ selectedProductDetail.price | number }} đ</div>
+          <button class="add-to-cart-btn" (click)="addToCartFromWishlist(selectedProductDetail)">
+            ADD TO CART
+          </button>
+        </div>
+      </div>
+      <div class="add-to-cart-toast" *ngIf="showAddToCartToast">
+        <i class="fas fa-check-circle"></i>
+        <span>Đã thêm "{{ addedProductName }}" vào giỏ hàng!</span>
+      </div>
+    </div>
+
+    <div class="share-modal-overlay" *ngIf="isShareModalVisible" (click)="closeShareModal()">
+      <div class="share-modal-content" (click)="$event.stopPropagation()">
+
+        <div class="share-icon-top">
+          <i class="fas fa-link"></i>
+        </div>
+
+        <button class="close-btn" (click)="closeShareModal()">×</button>
+
+        <h3 class="share-title">Share Wishlist</h3>
+        <p class="share-subtitle">Chia sẻ danh sách này với bạn bè và người thân!</p>
+
+        <p class="share-label">Share link</p>
+        <div class="share-link-input-group">
+          <input type="text" [value]="shareLink" readonly class="share-link-input">
+          <button class="copy-link-btn" (click)="copyLink()">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+
+        <p class="share-label">Share to</p>
+        <div class="social-share-icons">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ shareLink }}" target="_blank"
+            class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/intent/tweet?url={{ shareLink }}" target="_blank" class="social-icon twitter"><i
+              class="fab fa-twitter"></i></a>
+          <a href="https://wa.me/?text=Check%20out%20my%20Wishlist:%20{{ shareLink }}" target="_blank"
+            class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareLink }}" target="_blank"
+            class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- PHẦN MỚI: CART POPUP (Giỏ hàng nhanh) -->
+  <!-- ======================================================================= -->
+  <div class="cart-popup-backdrop" *ngIf="isCartPopupVisible" (click)="closeCartPopup()"></div>
+
+  <div class="cart-popup" *ngIf="isCartPopupVisible" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="popup-header">
+      <h3 class="title">
+        <ng-container *ngIf="activeCartTab === 'cart'">Giỏ hàng của bạn ({{ totalCartItems }})</ng-container>
+        <ng-container *ngIf="activeCartTab === 'popular'">Sản phẩm bán chạy</ng-container>
+        <ng-container *ngIf="activeCartTab === 'viewed'">Đã xem gần đây</ng-container>
+      </h3>
+      <button class="close-btn" (click)="closeCartPopup()">×</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="cart-tabs">
+      <button class="cart-tab" [class.active]="activeCartTab === 'cart'" (click)="setActiveTab('cart')">
+        <i class="fas fa-shopping-bag"></i>
+      </button>
+      <button class="cart-tab" [class.active]="activeCartTab === 'popular'" (click)="setActiveTab('popular')">
+        <i class="fas fa-bolt"></i>
+      </button>
+      <button class="cart-tab" [class.active]="activeCartTab === 'viewed'" (click)="setActiveTab('viewed')">
+        <i class="fas fa-eye"></i>
+      </button>
+    </div>
+
+    <!-- Body Content -->
+    <div class="popup-body">
+
+      <!-- TAB 1: GIỎ HÀNG -->
+      <div *ngIf="activeCartTab === 'cart'">
+        <!-- Nếu có sản phẩm -->
+        <div *ngIf="cartItems.length > 0">
+          <div class="cart-item" *ngFor="let item of cartItems">
+            <div class="item-product">
+              <img [src]="item.thumbnailUrl" [alt]="item.name" class="item-thumbnail"
+                onerror="this.onerror=null; this.src='https://placehold.co/80x80/38a169/ffffff?text=SP';" />
+
+              <div class="item-info">
+                <p class="item-name">{{ item.name }}</p>
+                <!-- Remove Button -->
+                <button class="remove-item-btn" (click)="removeFromCart(item.id)" title="Xóa sản phẩm">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+                <!-- Hiển thị attributes nếu có -->
+                <div class="item-attributes" *ngIf="item.attributes && item.attributes.length > 0">
+                  <span class="attribute-item" *ngFor="let attr of item.attributes">
+                    {{ attr.name }}: <strong>{{ attr.value }}</strong>
+                  </span>
+                </div>
+
+                <div class="item-price">
+                  {{ item.price | number:'1.0-0' }} đ
+                </div>
+
+                <div class="item-actions">
+                  <!-- Quantity Control -->
+                  <div class="quantity-control">
+                    <button class="qty-btn minus" (click)="decreaseQuantity(item.id)">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="qty-input" [value]="item.quantity"
+                      (change)="updateQuantity(item.id, $event)" min="1">
+                    <button class="qty-btn plus" (click)="increaseQuantity(item.id)">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nếu giỏ hàng trống -->
+        <div class="empty-cart-state" *ngIf="cartItems.length === 0">
+          <i class="fas fa-shopping-bag empty-icon"></i>
+          <p>Giỏ hàng của bạn đang trống.</p>
+          <a routerLink="/san-pham" class="start-shopping-btn" (click)="closeCartPopup()">
+            BẮT ĐẦU MUA SẮM
+          </a>
+        </div>
+      </div>
+
+      <!-- TAB 2: SẢN PHẨM BÁN CHẠY -->
+      <div *ngIf="activeCartTab === 'popular'">
+        <div class="product-list-item" *ngFor="let product of popularProducts">
+          <img [src]="product.thumbnailUrl" [alt]="product.name" class="product-list-thumbnail"
+            onerror="this.onerror=null; this.src='https://placehold.co/70x70/38a169/ffffff?text=SP';" />
+          <div class="product-list-info">
+            <p class="product-list-name">{{ product.name }}</p>
+            <p class="product-list-price">{{ product.price | number:'1.0-0' }} đ</p>
+          </div>
+        </div>
+        <a routerLink="/san-pham-ban-chay" class="view-all-btn" (click)="closeCartPopup()">
+          XEM TẤT CẢ SẢN PHẨM BÁN CHẠY
+        </a>
+      </div>
+
+      <!-- TAB 3: SẢN PHẨM ĐÃ XEM -->
+      <div *ngIf="activeCartTab === 'viewed'">
+        <div class="product-list-item" *ngFor="let product of viewedProducts">
+          <img [src]="product.thumbnailUrl" [alt]="product.name" class="product-list-thumbnail"
+            onerror="this.onerror=null; this.src='https://placehold.co/70x70/38a169/ffffff?text=SP';" />
+          <div class="product-list-info">
+            <p class="product-list-name">{{ product.name }}</p>
+            <p class="product-list-price">{{ product.price | number:'1.0-0' }} đ</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer (Chỉ hiện khi ở tab Giỏ hàng VÀ có sản phẩm) -->
+    <div class="popup-footer" *ngIf="activeCartTab === 'cart' && cartItems.length > 0">
+
+      <!-- Shipping Progress Bar -->
+      <div class="shipping-progress">
+        <p class="progress-text">
+          Thêm <strong>{{ getFreeShippingRemaining() | number:'1.0-0' }} đ</strong> nữa để được FREE
+          SHIPPING! Có thể dùng thêm vouchers của chúng tôi nhé!
+        </p>
+        <div class="progress-bar-container">
+          <div class="progress-bar" [style.width.%]="getShippingProgressPercentage()"></div>
+          <div class="progress-icon" [style.left.%]="getShippingProgressPercentage()">
+            <i class="fas fa-truck"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtotal -->
+      <div class="total-row">
+        <span class="subtotal-label">TẠM TÍNH:</span>
+        <span class="total-price">{{ totalCartPrice | number:'1.0-0' }} đ</span>
+      </div>
+
+      <!-- Continue to Checkout Button (Green) -->
+      <a routerLink="/thanh-toan" class="checkout-btn" (click)="closeCartPopup()">
+        TIẾN HÀNH THANH TOÁN
+      </a>
+
+      <!-- View Cart Button (Black outline) -->
+      <a routerLink="/gio-hang" class="view-cart-btn" (click)="closeCartPopup()">
+        XEM CHI TIẾT GIỎ HÀNG
+      </a>
+
+    </div>
+
+  </div>
 </header>

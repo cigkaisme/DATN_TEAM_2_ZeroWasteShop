@@ -1,0 +1,222 @@
+.intro-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #f7f9fa; /* Nền xám nhạt */
+}
+
+.intro-title {
+    font-size: 35px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.intro-subtitle {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    color: #444444;
+    margin-bottom: 30px;
+}
+
+hr {
+    border: 0;
+    border-top: 4px solid #1B5E20;
+    width: 250px;
+    margin: 15px auto 30px auto;
+}
+
+.intro-commitment {
+    font-size: 18px;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    font-weight: 500;
+}
+
+.intro-commitment strong {
+    color: #7ED957;
+    font-style: italic;
+
+}
+
+.review-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    /*gap: 40px;
+    max-width: 950px;
+    margin: 0 auto 50px;*/
+    margin-top: 40px;
+}
+
+.rating-and-bars-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 50%;
+    flex-shrink: 0;
+    width: 35%;
+    margin-top: -10px;
+}
+
+.rating-score-summary {
+    /* Đảm bảo khối điểm số không bị kéo giãn */
+    flex-shrink: 0;
+    width: 150px;
+    text-align: left;
+    margin-left: 160px;
+    margin-top: 35px;
+}
+
+.score-display {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 5px;
+    line-height: 1
+}
+
+.rating-score-summary i{
+    font-size: 30px;
+}
+
+.rating-summary {
+    text-align: left;
+    min-width: 250px;
+    padding-right: 20px;
+}
+
+.rating-score {
+    font-size: 50px;
+    font-weight: 700;
+    color: #0e97a4;
+    line-height: 1;
+}
+
+.score-out-of {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.rating-score-summary .green-star {
+    color: #7ED957;
+    font-size: 60px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.rating-base {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.rating-base strong {
+    color: #7ED957;
+}
+
+/* --- Rating Bars (Biểu đồ thanh ngang) --- */
+.rating-bars {
+    flex-grow: 1;
+    margin-top: 35px;
+    padding-top: 3px;
+    margin-right: -220px;
+    margin-left: 100px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.rating-level {
+    color: #0e97a4;
+    width: 30px;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.bar-fill-track {
+    flex-grow: 1;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    margin: 0 10px;
+}
+
+.bar-fill {
+    height: 100%;
+    background-color: #7ED957;
+    border-radius: 3px;
+    transition: width 0.5s ease-out;
+}
+
+.bar-count {
+    color: #666;
+    min-width: 40px; /* Đảm bảo đủ chỗ cho số 1.005 */
+    text-align: left;
+}
+
+.review-slider-section {
+    width: 60%; /* Ví dụ: chiếm 60% chiều rộng */
+    /* Hoặc dùng flex-grow: 1; nếu bạn muốn nó lấp đầy phần còn lại */
+}
+
+.review-display-container {
+    width: 60%;
+    overflow: visible; /* Giấu các review chưa hiển thị */
+    position: relative;
+    margin-top: 30px;
+}
+
+.review-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển slide */
+    width: 100%; /* Quan trọng: Cho phép track rộng bằng tổng các cards */
+}
+
+.customer-review-card {
+    background: #2A7B9B;
+    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 52%, rgba(42, 123, 155, 1) 100%);
+    flex-shrink: 0;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 15px;
+    margin-left: 210px;
+    margin-top: -30px;
+}
+
+.review-quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.verified-badge {
+    color: var(--green-dark); /* Sử dụng màu xanh lá cây */
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.stars-rating .filled {
+    color: gold;
+}
+.stars-rating .empty {
+    color: #ccc;
+}

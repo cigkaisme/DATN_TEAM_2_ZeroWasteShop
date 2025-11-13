@@ -1,0 +1,594 @@
+.category-section-wrapper {
+   max-width: 1280px;
+   margin: 0 auto;
+   padding: 60px 16px;
+}
+
+/* --- Category Header --- */
+.category-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+   padding: 0 0 10px 0;
+   margin-bottom: 25px;
+   border-bottom: 1px solid var(--border-color);
+}
+
+.category-title {
+   font-size: 30px;
+   font-weight: 600;
+   color: #111;
+}
+
+.category-title .highlight {
+   margin-right: 8px;
+   font-weight: 600;
+    font-size: 16px;
+    display: block;
+    line-height: 1;
+}
+
+.line {
+   flex-grow: 1;
+   height: 0;
+   border-bottom: 2px solid black;
+   margin: 0 15px;
+   align-self: flex-end;
+   transform: translateY(-80px);
+}
+
+.shop-now-btn {
+   border: 1px solid #7ED957;
+   color: black;
+   padding: 8px 18px;
+   border-radius: 6px;
+   font-weight: 700;
+   text-decoration: none;
+   transition: all 0.2s;
+   margin-bottom: 60px;
+}
+
+.shop-now-btn:hover {
+   background-color: #7ED957;
+   color: white;
+}
+
+/* --- Product Grid Layout (SỬA ĐỔI QUAN TRỌNG) --- */
+.product-grid {
+   display: grid;
+   grid-template-columns: 550px repeat(2, 1fr);
+   grid-auto-rows: 500px;
+   gap: 20px;
+   margin-bottom: 40px;
+   max-width: 100%;
+   grid-template-rows: repeat(2, minmax(300px, 1fr));
+}
+
+/* Định dạng chung cho Card */
+.product-card {
+   background: #fff;
+   border-radius: 12px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+/* Thẻ đầu tiên (GIF/ảnh lớn) */
+.product-grid .product-card:first-child {
+   grid-column: span 1;
+   grid-row: span 2;
+}
+
+/* Thẻ ảnh (các cột nhỏ) */
+.product-card .media {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+}
+
+/* Ảnh của thẻ LỚN */
+.product-grid .product-card:first-child .media {
+   height: 100%;
+}
+
+.product-card img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+/* --- STYLE CHO GIF VÀ OVERLAY --- */
+
+/* Ẩn các yếu tố không cần thiết trên thẻ media lớn (thẻ đầu tiên) */
+.product-grid .product-card:first-child .wish-btn,
+.product-grid .product-card:first-child .product-label,
+.product-grid .product-card:first-child .product-overlay-info {
+    display: none;
+}
+
+.product-gif {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Overlay Text (Chữ trên GIF) */
+.video-overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    z-index: 10;
+    line-height: 1.5;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    max-width: 80%;
+    pointer-events: none;
+}
+
+/* Logo dưới cùng của GIF */
+.video-logo {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.video-logo img {
+    height: 20px;
+    width: auto;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
+
+
+/* Tiêu đề và giá */
+.product-overlay-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+    padding: 100px 15px 15px 15px;
+    color: white;
+    box-sizing: border-box;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: initial;
+}
+
+/* Hiển thị khi hover vào thẻ sản phẩm */
+.product-card:hover .product-overlay-info {
+    opacity: 1;
+}
+
+.product-overlay-info .title {
+   font-size: 15px;
+   font-weight: 600;
+   margin-bottom: 4px;
+    /* Đảm bảo chữ trắng hiển thị */
+    color: white;
+    line-height: 1.3;
+}
+
+.product-overlay-info .price {
+   font-size: 16px;
+   font-weight: 700;
+}
+
+.action-buttons {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column; /* Xếp dọc */
+    gap: 10px;
+    opacity: 0; /* Mặc định ẩn, chỉ hiện khi hover */
+    transition: opacity 0.3s ease;
+}
+
+/* 2. HIỂN THỊ KHI HOVER */
+.product-card:hover .action-buttons {
+    opacity: 1;
+}
+
+/* 3. STYLE CHUNG CHO NÚT CON */
+.action-buttons .wish-btn,
+.action-buttons .add-cart-btn {
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s, transform 0.2s;
+    position: relative; /* Cần cho tooltip */
+    pointer-events: auto; /* Quan trọng để nút có thể click */
+}
+
+/* 4. STYLE CHO NÚT WISHLIST */
+.action-buttons .wish-btn {
+    background: #ffffff;
+}
+.action-buttons .wish-btn i {
+    font-size: 16px;
+    color: #000000;
+    transition: color 0.2s;
+}
+.action-buttons .wish-btn:hover {
+    background: #57d9cc;
+}
+.action-buttons .wish-btn:hover i {
+    color: white;
+}
+
+.action-buttons .wish-btn.is-wished {
+    background: #7ED957; /* Màu nền đỏ nổi bật khi đã yêu thích */
+}
+.action-buttons .wish-btn.is-wished i {
+    color: white; /* Icon trái tim đậm màu trắng */
+}
+
+/* --- Cập nhật hover cho trạng thái is-wished (tùy chọn) --- */
+.action-buttons .wish-btn.is-wished:hover {
+    background: #E04B50; /* Màu đỏ sẫm hơn khi hover */
+}
+
+/* 5. STYLE CHO NÚT ADD TO CART */
+.action-buttons .add-cart-btn {
+    background: #ffffff; /* Màu xanh lá cây nổi bật */
+}
+.action-buttons .add-cart-btn i {
+    font-size: 16px;
+    color: #000000;
+}
+.action-buttons .add-cart-btn:hover {
+    background: #57d9cc;
+    transform: scale(1.05);
+}
+
+.action-buttons .add-cart-btn:hover i {
+    color: white;
+}
+
+/* 6. TOOLTIP CHO NÚT ADD TO CART */
+.add-cart-btn .tooltip-text {
+    visibility: hidden;
+    width: 130px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 11;
+    top: 50%;
+    right: 110%; /* Hiển thị bên trái nút */
+    transform: translateY(-50%);
+    font-size: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.add-cart-btn:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Mũi tên tooltip */
+.add-cart-btn .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #333;
+}
+
+/* Product Label (Ví dụ: 'MỚI' hoặc 'SALE') */
+.product-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #ffffff; /* Màu xanh lá cây nổi bật */
+    color: #7ED957;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 10;
+    text-transform: uppercase;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.product-overlay-info .star-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Style cho các ngôi sao */
+.product-overlay-info .fa-star {
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 1px;
+}
+
+/* Màu vàng cho các sao đã được đánh giá (class 'on' trong HTML) */
+.product-overlay-info .fa-star.on {
+    color: #7ED957; /* Màu vàng */
+}
+
+/* Style cho số lượng reviews */
+.product-overlay-info .reviews {
+    font-size: 12px;
+    font-weight: 500;
+    color: #ccc;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+/* Tiêu đề (Tên sản phẩm) */
+.product-overlay-info .title {
+   font-size: 15px;
+   font-weight: 600;
+   margin-bottom: 4px;
+    color: white;
+    line-height: 1.3;
+}
+
+/* Giá sản phẩm */
+.product-overlay-info .price {
+   font-size: 16px;
+   font-weight: 700;
+   color: var(--green-light);
+}
+
+.product-card .media .default-img,
+.product-card .media .hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Tăng thời gian chuyển đổi ảnh lên 0.5 giây */
+    transition: opacity 0.5s ease;
+}
+
+/* Đảm bảo ảnh hover mặc định ẩn */
+.product-card .media .hover-img {
+    opacity: 0;
+}
+
+/* Ẩn ảnh mặc định và hiện ảnh hover khi hover vào card */
+.product-card:hover .media .default-img {
+    opacity: 0;
+}
+
+.product-card:hover .media .hover-img {
+    opacity: 1;
+}
+
+.product-grid.layout-reversed {
+  /* Đảo ngược thứ tự cột: 2 cột 1fr trước, cột 550px (GIF) sau */
+   grid-template-columns: repeat(2, 1fr) 550px;
+}
+
+.product-grid.layout-reversed .product-card:first-child {
+   grid-column: 3; /* Bắt đầu từ cột 3 */
+   grid-row: span 2; /* Vẫn chiếm 2 hàng */
+}
+
+.product-grid.layout-reversed .product-card:nth-child(2) {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+/* Sản phẩm nhỏ 2 (index 3) */
+.product-grid.layout-reversed .product-card:nth-child(3) {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+/* Sản phẩm nhỏ 3 (index 4) */
+.product-grid.layout-reversed .product-card:nth-child(4) {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+/* Sản phẩm nhỏ 4 (index 5) */
+.product-grid.layout-reversed .product-card:nth-child(5) {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.product-grid .product-link {
+    /* Quan trọng: Loại bỏ gạch chân và reset màu chữ */
+    text-decoration: none;
+    color: inherit;
+    /* Đảm bảo thẻ a chiếm đúng không gian */
+    display: block;
+}
+
+.buy-now-btn {
+    border: 1px solid #7ED957;
+    color: white;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 10px;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto !important;
+}
+
+.buy-now-btn:hover {
+    background-color: #7ED957;
+    color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #000000;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.product-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.product-name {
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.add-to-list-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.existing-list {
+  margin-bottom: 10px;
+}
+
+.existing-list label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  border: 1px solid #eee;
+}
+
+.existing-list label:hover {
+    background-color: #f7f7f7;
+}
+
+.existing-list input[type="checkbox"] {
+  margin-left: auto;
+  transform: scale(1.2);
+}
+
+.list-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.new-list-input {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.new-list-input input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.create-new-btn {
+  margin-top: 15px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-to-list-btn {
+    margin-top: -40px;
+    padding: 10px 35px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.add-to-list-btn[disabled] {
+    /* Sử dụng !important nếu màu chưa đổi do có style khác ghi đè */
+    background-color: #e0e0e0 !important; /* Màu xám mờ */
+    color: #a0a0a0 !important; /* Chữ màu xám nhạt */
+    cursor: not-allowed;
+    box-shadow: none;
+}

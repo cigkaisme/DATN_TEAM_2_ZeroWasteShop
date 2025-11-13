@@ -1,0 +1,26 @@
+<section class="core-values-section">
+    <div class="container">
+        <h2 class="section-title">"HÀNH TRÌNH XANH ĐẾN TỪ CẢ MỘT QUY TRÌNH!"</h2>
+
+        <div class="values-grid">
+            <div class="value-item" *ngFor="let item of values">
+                <img [src]="item.iconUrl" [alt]="item.title" class="value-icon" />
+
+                <h3 class="value-title">{{ item.title }}</h3>
+
+                <p class="value-description">{{ item.description }}</p>
+            </div>
+        </div>
+
+        <div class="bottom-strip-wrapper">
+            <div class="bottom-strip-content">
+                <ng-container *ngFor="let i of [1, 2]">
+                    <span class="strip-item">NÓI KHÔNG VỚI NHỰA</span>
+                    <span class="strip-item">KHÔNG THÍ NGHIỆM TRÊN ĐỘNG VẬT</span>
+                    <span class="strip-item">ƯU TIÊN VIỆC KHÔNG PHÁT THẢI</span>
+                    <span class="strip-item">TƯƠNG LAI XANH - SẠCH - ĐẸP</span>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>

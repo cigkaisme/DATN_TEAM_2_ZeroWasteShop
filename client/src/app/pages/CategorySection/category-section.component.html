@@ -1,0 +1,128 @@
+<section class="category-section-wrapper" *ngFor="let category of categories; index as i">
+
+  <div class="category-header">
+    <div class="title-group">
+      <img src="assets/images/logo/zerowasteshop_logo.png" alt="ZeroWasteShop Logo" class="logo-img">
+      <h2 class="category-title">
+        {{ category.name }}
+      </h2>
+    </div>
+
+    <div class="line"></div>
+
+    <a [routerLink]="category.routerLink" class="shop-now-btn">
+      MUA SẮM NGAY
+    </a>
+  </div>
+
+  <div class="product-grid" [ngClass]="{ 'layout-reversed': i % 2 !== 0 }">
+
+    <article class="product-card" *ngFor="let product of category.products; index as j"
+      (click)="navigateToProduct(product, $event)" [ngStyle]="{ 'cursor': product.name ? 'pointer' : 'default' }">
+      <div class="media">
+
+        <ng-container *ngIf="j === 0 && product.isLargeMedia">
+          <img [src]="product.mediaUrl || product.thumbnailUrl" [alt]="product.name" class="product-gif" />
+          <div class="video-overlay-text">
+            {{ product.videoOverlayText }}
+          </div>
+          <div class="video-logo">
+            <img src="assets/images/logo/zerowasteshop_logo.png" alt="Brand Logo">
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="j !== 0 || !product.isLargeMedia">
+          <img [src]="product.thumbnailUrl" [alt]="product.name" />
+          <img [src]="product.hoverUrl" [alt]="product.name" class="hover-img" *ngIf="product.hoverUrl" />
+
+          <ng-container *ngIf="product.id">
+            <div class="action-buttons">
+              <button class="wish-btn" aria-label="wishlist" (click)="$event.stopPropagation(); openWishlistModal(product)"
+                [class.is-wished]="product.isWished">
+                <i class="fa-{{ product.isWished ? 'solid' : 'regular' }} fa-heart"></i>
+              </button>
+
+              <button class="add-cart-btn" aria-label="add to cart"
+                (click)="$event.stopPropagation(); addToCart(product)">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="tooltip-text">THÊM VÀO GIỎ HÀNG</span>
+              </button>
+            </div>
+
+            <div class="product-label" *ngIf="product.label">{{ product.label }}</div>
+          </ng-container>
+
+          <div class="product-overlay-info">
+            <div class="star-group">
+              <ng-container *ngFor="let s of [1,2,3,4,5]; let k = index">
+                <i class="fa fa-star" [class.on]="k < Math.round(product.averageRating || 0)"></i>
+              </ng-container>
+              <div class="reviews">{{ product.reviewCount }} reviews</div>
+            </div>
+            <h3 class="title">{{ product.name }}</h3>
+            <div class="price">{{ product.price | number }} đ</div>
+            <button class="buy-now-btn"
+              (click)="$event.stopPropagation(); router.navigate(['/product', product.slug || product.id])">MUA
+              NGAY</button>
+          </div>
+        </ng-container>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="modal-overlay" *ngIf="isModalVisible" (click)="closeWishlistModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+            <img [src]="selectedProduct.thumbnailUrl" alt="Product Image" class="product-thumb" />
+            <h3 class="product-name">{{ selectedProduct.name || 'Sản phẩm' }}</h3>
+            <button class="close-btn" (click)="closeWishlistModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <p class="add-to-list-title">Thêm vào Danh sách</p>
+
+            <div class="existing-list" *ngFor="let list of wishlistLists; let i = index">
+                <label>
+                    <!-- <img src="assets/images/logo/list_icon.png" alt="List Icon" class="list-icon"> -->
+                    {{ list.name }}
+                    <input type="checkbox"
+                        [checked]="list.items.includes(selectedProduct.id)"
+                        (change)="toggleItemInList(list, selectedProduct.id, $event.target.checked)">
+                </label>
+            </div>
+
+            <div class="new-list-creation-inline" *ngIf="showNewListInput">
+                <div class="new-list-input-group">
+                    <!-- <img src="assets/images/logo/list_icon.png" alt="List Icon Placeholder" class="list-icon-placeholder"> -->
+                    <input
+                        type="text"
+                        [(ngModel)]="newListName"
+                        placeholder="Tên Danh sách mới"
+                        (keyup.enter)="createNewList()"
+                    >
+                </div>
+                </div>
+
+            <div class="create-list-placeholder" *ngIf="!showNewListInput">
+                <button
+                    class="create-new-btn"
+                    (click)="toggleNewListInput()">
+                    CREATE NEW LIST
+                </button>
+            </div>
+
+        </div> <div class="modal-footer">
+            <button
+                class="add-to-list-btn"
+                [disabled]="!isAnyListSelected && !showNewListInput"
+                [class.is-disabled]="!isAnyListSelected && !showNewListInput"
+                (click)="showNewListInput ? createNewList() : addSelectedToLists()"
+            >
+                {{ showNewListInput ? 'ADD TO LIST' : 'ADD TO LIST' }}
+            </button>
+        </div>
+
+    </div>
+</div>
