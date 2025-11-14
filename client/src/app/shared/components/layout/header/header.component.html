@@ -115,7 +115,7 @@
 
         <li><a routerLink="/san-pham-ban-chay" class="sub-nav-link"><i class="fas fa-clock"></i> SẢN PHẨM BÁN CHẠY</a>
         </li>
-        <li><a routerLink="/san-pham-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU
+        <li><a routerLink="/san-pham-duoc-yeu-thich" class="sub-nav-link"><i class="fas fa-heart"></i> SẢN PHẨM ĐƯỢC YÊU
             THÍCH</a></li>
       </ul>
     </div>
@@ -152,31 +152,6 @@
       <li class="menu-section-title"><a routerLink="/starter-kit">STARTER KIT</a></li>
     </ul>
   </div>
-
-  <section class="hero-banner" role="banner">
-    <div class="hero-overlay">
-      <div class="hero-slider-track">
-
-        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_1.jpg');"></div>
-
-        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_2.jpeg');"></div>
-
-        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_3.png');"></div>
-
-        <div class="hero-slide" style="background-image: url('/assets/images/banners/banner_4.png');"></div>
-
-      </div>
-      <div class="hero-content">
-
-        <h1 class="hero-title">Việt Nam tạo ra khoảng 60 nghìn tấn rác thải mỗi ngày!</h1>
-
-        <p class="hero-subtitle">Đã đến lúc chúng ta phải suy nghĩ lại về cách tiêu dùng.</p>
-
-        <a routerLink="/san-pham" class="hero-cta">MUA SẢN PHẨM BÁN CHẠY</a>
-
-      </div>
-    </div>
-  </section>
 
   <div class="wishlist-modal-overlay" *ngIf="isWishlistDropdownVisible || isWishlistDetailVisible"
     (click)="isWishlistDetailVisible ? backToWishlistDropdown() : toggleWishlistDropdown()">

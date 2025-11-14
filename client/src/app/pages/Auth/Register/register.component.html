@@ -1,0 +1,22 @@
+<div class="auth-container">
+  <h2>Đăng ký</h2>
+  <form (ngSubmit)="onRegister()">
+    <input placeholder="Tên đăng nhập" [(ngModel)]="username" name="username" required />
+    <input placeholder="Họ và Tên" [(ngModel)]="fullName" name="fullName" required />
+    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+    <input placeholder="Số điện thoại" [(ngModel)]="phone" name="phone" required />
+    <button type="button" (click)="sendOtp()">Gửi mã OTP</button>
+  </form>
+
+  <div *ngIf="otpSent">
+    <p>Nhập mã OTP đã gửi về email hoặc số điện thoại của bạn</p>
+    <input placeholder="Mã OTP" [(ngModel)]="otp" />
+    <button (click)="verifyOtp()">Xác nhận OTP</button>
+  </div>
+
+  <div *ngIf="otpVerified">
+    <h3>Tạo mật khẩu</h3>
+    <input type="password" placeholder="Mật khẩu" [(ngModel)]="password" />
+    <button (click)="completeRegistration()">Hoàn tất đăng ký</button>
+  </div>
+</div>

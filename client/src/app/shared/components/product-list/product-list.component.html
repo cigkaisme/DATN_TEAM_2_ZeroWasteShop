@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="filter-sidebar-overlay" [class.active]="isFilterSidebarOpen()" (click)="toggleFilterSidebar()"></div>
+
+<div class="filter-sidebar-panel" [class.active]="isFilterSidebarOpen()">
+  <div class="filter-header">
+    <span class="filter-title">BỘ LỌC SẢN PHẨM</span>
+    <button class="close-btn" (click)="toggleFilterSidebar()"><i class="fas fa-times"></i></button>
+  </div>
+
+  <div class="filter-content">
+    <div class="filter-group">
+      <h4 class="group-title">DANH MỤC</h4>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> Beauty Enthusiast</label></li>
+        <li><label><input type="checkbox"> Co-worker</label></li>
+        <li><label><input type="checkbox"> Parents</label></li>
+        <li><label><input type="checkbox"> Self Love</label></li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4 class="group-title">Subscribe & Save</h4>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> Subscription</label></li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4 class="group-title">AVAILABILITY</h4>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> In Stock</label></li>
+        <li><label><input type="checkbox"> Out Of Stock</label></li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h4 class="group-title">PRICE</h4>
+      <input type="range" min="0" max="581" class="price-slider">
+      <p class="price-display">Price: 0 đ — 581.000 đ</p>
+    </div>
+  </div>
+
+  <div class="filter-footer">
+    <button class="filter-apply-btn" (click)="toggleFilterSidebar()">ÁP DỤNG</button>
+  </div>
+</div>
+
+
+<div class="shop-container">
+
+  <nav class="breadcrumbs">
+    <a routerLink="/trang-chu"><i class="fas fa-home"></i> TRANG CHỦ</a>
+    <i class="fas fa-chevron-right separator"></i>
+    <span>{{ breadcrumbText }}</span>
+  </nav>
+
+  <div class="shop-toolbar">
+    <button class="filter-toggle-btn" (click)="toggleFilterSidebar()">
+      <i class="fas fa-filter"></i> BỘ LỌC SẢN PHẨM
+    </button>
+
+    <div class="view-options">
+      <div class="layout-toggle">
+        <button (click)="setGridLayout('grid-cols-2')" [class.active]="gridLayout() === 'grid-cols-2'">
+          <i class="fas fa-th-large"></i>
+        </button>
+        <button (click)="setGridLayout('grid-cols-3')" [class.active]="gridLayout() === 'grid-cols-3'">
+          <i class="fas fa-th"></i>
+        </button>
+        <button (click)="setGridLayout('grid-cols-4')" [class.active]="gridLayout() === 'grid-cols-4'">
+          <i class="fas fa-grip-horizontal"></i>
+        </button>
+        <button (click)="setGridLayout('list-view')" [class.active]="gridLayout() === 'list-view'">
+          <i class="fas fa-list"></i>
+        </button>
+      </div>
+
+      <select class="sort-dropdown" (change)="onSortChange($event)">
+        <option *ngFor="let option of sortOptions" [value]="option" [selected]="option === activeSort()">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="product-grid" [class]="gridLayout()">
+
+    <div class="product-card" *ngFor="let product of filteredAndSortedProducts()">
+
+      <div class="card-image-wrapper">
+        <img [src]="product.thumbnailUrl" [alt]="product.name" class="product-image"
+          (click)="productClicked(product.slug)">
+
+        <button class="wishlist-btn" [class.wished]="wishlistStatus()[product.id]" (click)="toggleWishlist(product.id)">
+          <i class="fas fa-heart"></i>
+        </button>
+
+        <div class="product-actions-hover">
+          <button class="buy-now-btn" (click)="buyNow(product.name)">
+            MUA NGAY
+          </button>
+          <button class="add-cart-btn" (click)="addToCart(product.name)">
+            <i class="fas fa-cart-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <h3 class="product-name" (click)="productClicked(product.slug)">{{ product.name }}</h3>
+        <div class="product-reviews">
+          <span class="stars" [style.--rating]="product.averageRating">★★★★★</span>
+          <span class="review-count">{{ product.reviewCount }} reviews</span>
+        </div>
+        <p class="product-price">{{ product.price | currency:'VND':'đ':'1.0-0':'vi' }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>

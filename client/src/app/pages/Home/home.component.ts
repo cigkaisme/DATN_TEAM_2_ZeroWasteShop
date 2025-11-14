@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BannerSlideComponent } from 'app/shared/components/ui/banner_slide/banner_slide.component';
 import { HomeCategoryListComponent } from '../HomeCategoryList/home-category-list.component';
 import { HomeIntroComponent } from '../HomeIntro/home-intro.component';
 import { FeaturedProductsComponent } from '../FeaturedProducts/featured-products.component';
@@ -13,6 +14,7 @@ import { ChallengeBannerComponent } from '../ChallengeBanner/challenge-banner.co
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule,
+            BannerSlideComponent,
             HomeCategoryListComponent,
             HomeIntroComponent,
             FeaturedProductsComponent,
