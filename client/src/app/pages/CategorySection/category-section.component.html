@@ -71,6 +71,7 @@
   </div>
 </section>
 
+<!-- WISHLIST MODAL -->
 <div class="modal-overlay" *ngIf="isModalVisible" (click)="closeWishlistModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
 
@@ -85,7 +86,6 @@
 
       <div class="existing-list" *ngFor="let list of wishlistLists; let i = index">
         <label>
-          <!-- <img src="assets/images/logo/list_icon.png" alt="List Icon" class="list-icon"> -->
           {{ list.name }}
           <input type="checkbox" [checked]="list.items.includes(selectedProduct.id)"
             (change)="toggleItemInList(list, selectedProduct.id, $event.target.checked)">
@@ -94,7 +94,6 @@
 
       <div class="new-list-creation-inline" *ngIf="showNewListInput">
         <div class="new-list-input-group">
-          <!-- <img src="assets/images/logo/list_icon.png" alt="List Icon Placeholder" class="list-icon-placeholder"> -->
           <input type="text" [(ngModel)]="newListName" placeholder="Tên Danh sách mới" (keyup.enter)="createNewList()">
         </div>
       </div>
@@ -106,70 +105,72 @@
       </div>
 
     </div>
+
     <div class="modal-footer">
       <button class="add-to-list-btn" [disabled]="!isAnyListSelected && !showNewListInput"
         [class.is-disabled]="!isAnyListSelected && !showNewListInput"
         (click)="showNewListInput ? createNewList() : addSelectedToLists()">
-        {{ showNewListInput ? 'ADD TO LIST' : 'ADD TO LIST' }}
+        ADD TO LIST
       </button>
     </div>
 
-    <div class="modal-overlay quick-buy-overlay" *ngIf="isQuickBuyModalVisible" (click)="closeQuickBuyModal()">
-      <div class="modal-content quick-buy-modal" (click)="$event.stopPropagation()">
+  </div>
+</div>
 
-        <!-- Header -->
-        <div class="modal-header">
-          <img [src]="selectedQuickBuyProduct?.thumbnailUrl" alt="Product Image" class="product-thumb-large" />
-          <div class="product-info-header">
-            <h3 class="product-name-large">{{ selectedQuickBuyProduct?.name }}</h3>
-            <p class="product-price-large">{{ selectedQuickBuyProduct?.price | number }} đ</p>
-          </div>
-          <button class="close-btn" (click)="closeQuickBuyModal()">×</button>
-        </div>
+<!-- QUICK BUY MODAL - RA NGOÀI WISHLIST MODAL -->
+<div class="modal-overlay quick-buy-overlay" *ngIf="isQuickBuyModalVisible" (click)="closeQuickBuyModal()">
+  <div class="modal-content quick-buy-modal" (click)="$event.stopPropagation()">
 
-        <div class="modal-body quick-buy-body">
-
-          <!-- Attributes Selection -->
-          <div class="attributes-section"
-            *ngIf="selectedQuickBuyProduct?.attributes && selectedQuickBuyProduct.attributes.length > 0">
-            <div class="attribute-group" *ngFor="let attr of selectedQuickBuyProduct.attributes">
-              <label class="attribute-label">{{ attr.name | uppercase }}:</label>
-              <div class="attribute-options">
-                <button class="attribute-option-btn" *ngFor="let option of attr.options"
-                  [class.selected]="isAttributeSelected(attr.name, option)"
-                  (click)="selectAttribute(attr.name, option)">
-                  <span class="option-icon" *ngIf="attr.name === 'Màu'">
-                    <span class="color-dot" [style.background-color]="getColorCode(option)"></span>
-                  </span>
-                  {{ option }}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Payment Info -->
-          <div class="payment-info">
-            <p class="payment-text">
-              <i class="fab fa-cc-visa"></i>
-              Pay over time for orders over <strong>$35.00</strong> with ShopPay
-              <a href="#" class="learn-more">Learn more</a>
-            </p>
-          </div>
-
-        </div>
-
-        <!-- Footer Actions -->
-        <div class="modal-footer quick-buy-footer">
-          <button class="quick-buy-btn" (click)="handleQuickBuy()">
-            MUA NGAY
-          </button>
-          <a [routerLink]="['/product', selectedQuickBuyProduct?.slug]" class="view-details-link"
-            (click)="closeQuickBuyModal()">
-            Xem chi tiết đầy đủ <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
+    <!-- Header -->
+    <div class="modal-header">
+      <img [src]="selectedQuickBuyProduct?.thumbnailUrl" alt="Product Image" class="product-thumb-large" />
+      <div class="product-info-header">
+        <h3 class="product-name-large">{{ selectedQuickBuyProduct?.name }}</h3>
+        <p class="product-price-large">{{ selectedQuickBuyProduct?.price | number }} đ</p>
       </div>
+      <button class="close-btn" (click)="closeQuickBuyModal()">×</button>
     </div>
+
+    <div class="modal-body quick-buy-body">
+
+      <!-- Attributes Selection -->
+      <div class="attributes-section"
+        *ngIf="selectedQuickBuyProduct?.attributes && selectedQuickBuyProduct.attributes.length > 0">
+        <div class="attribute-group" *ngFor="let attr of selectedQuickBuyProduct.attributes">
+          <label class="attribute-label">{{ attr.name | uppercase }}:</label>
+          <div class="attribute-options">
+            <button class="attribute-option-btn" *ngFor="let option of attr.options"
+              [class.selected]="isAttributeSelected(attr.name, option)" (click)="selectAttribute(attr.name, option)">
+              <span class="option-icon" *ngIf="attr.name === 'Màu'">
+                <span class="color-dot" [style.background-color]="getColorCode(option)"></span>
+              </span>
+              {{ option }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Info -->
+      <div class="payment-info">
+        <p class="payment-text">
+          <i class="fa-solid fa-credit-card"></i>
+          Thanh toán bằng thẻ ngân hàng hoặc ví điện tử sẽ được <strong>giảm 10%</strong> cho tổng đơn hàng <strong>trên 400k</strong>
+          <a href="#" class="learn-more">Learn more</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="modal-footer quick-buy-footer">
+      <button class="quick-buy-btn" (click)="handleQuickBuy()">
+        MUA NGAY
+      </button>
+      <a [routerLink]="['/product', selectedQuickBuyProduct?.slug]" class="view-details-link"
+        (click)="closeQuickBuyModal()">
+        Xem chi tiết đầy đủ <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
   </div>
 </div>
