@@ -4,8 +4,10 @@ import {
   HostListener,
   Renderer2,
   OnDestroy,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule, DecimalPipe, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WishlistService, Wishlist, Product } from 'services/wishlist.service';
 import { registerLocaleData } from '@angular/common';
@@ -174,7 +176,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private wishlistService: WishlistService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -188,10 +191,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Đảm bảo cuộn được bật lại khi component bị hủy
   ngOnDestroy(): void {
-    if (this.isModalOpen) {
+    if (isPlatformBrowser(this.platformId) && this.isModalOpen) {
       this.renderer.removeClass(document.body, 'modal-open');
     }
-    this.renderer.removeClass(document.body, 'no-scroll');
   }
 
   getProductInfo(productId: number): Product | undefined {
@@ -200,13 +202,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Hàm QUAN TRỌNG: Quản lý trạng thái khóa cuộn (Mới)
   private setModalState(forceState?: boolean) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     let newState: boolean;
 
     if (typeof forceState === 'boolean') {
-      // Nếu có tham số, sử dụng nó để buộc (force) trạng thái
       newState = forceState;
     } else {
-      // Nếu không có tham số, tính toán trạng thái tự động như trước
       newState =
         this.isCartPopupVisible ||
         this.isWishlistDropdownVisible ||
@@ -214,14 +216,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isShareModalVisible;
     }
 
-    // Chỉ thực hiện thay đổi DOM nếu trạng thái thực sự thay đổi
     if (this.isModalOpen !== newState) {
       this.isModalOpen = newState;
       if (newState) {
-        // Thêm class 'modal-open' vào thẻ <body> để khóa cuộn
         this.renderer.addClass(document.body, 'modal-open');
       } else {
-        // Xóa class 'modal-open' khỏi thẻ <body> để bật cuộn
         this.renderer.removeClass(document.body, 'modal-open');
       }
     }
@@ -318,15 +317,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   copyLink(): void {
-    // Sử dụng document.execCommand('copy') thay vì navigator.clipboard.writeText()
-    // để đảm bảo hoạt động trong môi trường iframe
-    const linkInput = document.querySelector(
-      '.share-link-input'
-    ) as HTMLInputElement;
-    if (linkInput) {
-      linkInput.select();
-      document.execCommand('copy');
-      alert('Đã sao chép link chia sẻ!'); // Thay thế bằng modal/toast message
+    // Kiểm tra xem có đang chạy trên browser không
+    if (isPlatformBrowser(this.platformId)) {
+      const linkInput = document.querySelector(
+        '.share-link-input'
+      ) as HTMLInputElement;
+      if (linkInput) {
+        linkInput.select();
+
+        // Sử dụng Clipboard API hiện đại với fallback
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(this.shareLink)
+            .then(() => {
+              alert('Đã sao chép link chia sẻ!');
+            })
+            .catch(() => {
+              // Fallback về execCommand
+              document.execCommand('copy');
+              alert('Đã sao chép link chia sẻ!');
+            });
+        } else {
+          // Fallback cho trình duyệt cũ
+          document.execCommand('copy');
+          alert('Đã sao chép link chia sẻ!');
+        }
+      }
+    } else {
+      // Nếu chạy trên server, chỉ log
+      console.log('Copy function not available on server');
     }
   }
 
@@ -512,16 +531,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Cập nhật trạng thái khóa cuộn (no-scroll)
   private updateBodyScrollState(): void {
-    this.isModalOpen =
-      this.isCartPopupVisible ||
-      this.isWishlistDropdownVisible ||
-      this.isWishlistDetailVisible ||
-      this.isShareModalVisible;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isModalOpen =
+        this.isCartPopupVisible ||
+        this.isWishlistDropdownVisible ||
+        this.isWishlistDetailVisible ||
+        this.isShareModalVisible;
 
-    if (this.isModalOpen) {
-      this.renderer.addClass(document.body, 'modal-open');
-    } else {
-      this.renderer.removeClass(document.body, 'modal-open');
+      if (this.isModalOpen) {
+        this.renderer.addClass(document.body, 'modal-open');
+      } else {
+        this.renderer.removeClass(document.body, 'modal-open');
+      }
     }
   }
 
