@@ -28,9 +28,64 @@
         </a>
       </div>
 
-      <div class="search-bar-container">
-        <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" style="font-family: Montserrat;">
-        <button class="search-button"><i class="fas fa-search"></i></button>
+      <div class="search-wrapper">
+        <div class="search-bar-container">
+          <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" [(ngModel)]="searchQuery"
+            (focus)="onSearchFocus()" (blur)="onSearchBlur()" (input)="onSearchInput($event)"
+            (keyup.enter)="performSearch()" style="font-family: Montserrat;">
+
+          <!-- Nút clear (hiện khi có text) -->
+          <button class="search-clear-btn" *ngIf="searchQuery" (click)="clearSearch()">
+            <i class="fas fa-times"></i>
+          </button>
+
+          <!-- Nút search icon bên phải -->
+          <button class="search-button" (click)="performSearch()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <!-- Search Suggestions Dropdown - RA NGOÀI -->
+        <div class="search-suggestions-dropdown" *ngIf="isSearchFocused">
+
+          <!-- Popular Suggestions -->
+          <div class="suggestions-section" *ngIf="filteredSuggestions.length > 0">
+            <h4 class="section-title">GỢI Ý PHỔ BIẾN</h4>
+            <div class="suggestion-item" *ngFor="let suggestion of filteredSuggestions"
+              (click)="selectSuggestion(suggestion)">
+              <i class="fas fa-search suggestion-icon"></i>
+              <span class="suggestion-text">{{ suggestion }}</span>
+            </div>
+          </div>
+
+          <!-- Products -->
+          <div class="products-section" *ngIf="showProducts && filteredProducts.length > 0">
+            <h4 class="section-title">SẢN PHẨM</h4>
+            <div class="product-suggestion-item" *ngFor="let product of filteredProducts"
+              (click)="navigateToProduct(product)">
+              <img [src]="product.thumbnailUrl" [alt]="product.name" class="product-suggestion-thumb"
+                onerror="this.onerror=null; this.src='https://placehold.co/60x60/38a169/ffffff?text=SP';">
+              <div class="product-suggestion-info">
+                <p class="product-suggestion-name">{{ product.name }}</p>
+                <p class="product-suggestion-brand">{{ product.brand }}</p>
+                <div class="product-suggestion-footer">
+                  <span class="product-suggestion-price">{{ product.price | number }} đ</span>
+                  <div class="product-suggestion-rating">
+                    <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= product.rating"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Results -->
+          <div class="no-results"
+            *ngIf="searchQuery && filteredSuggestions.length === 0 && filteredProducts.length === 0">
+            <i class="fas fa-search no-results-icon"></i>
+            <p>Không tìm thấy kết quả cho "{{ searchQuery }}"</p>
+          </div>
+
+        </div>
       </div>
 
       <div class="nav-icons nav-icons-large">

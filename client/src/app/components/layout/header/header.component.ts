@@ -4,11 +4,14 @@ import {
   HostListener,
   Renderer2,
   OnDestroy,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { CommonModule, DecimalPipe, isPlatformBrowser } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { WishlistService, Wishlist, Product } from 'services/wishlist.service';
 import { registerLocaleData } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import localeVi from '@angular/common/locales/vi';
 
 // Đăng ký locale Việt Nam
@@ -49,7 +52,7 @@ type CartTab = 'cart' | 'popular' | 'viewed';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, DecimalPipe], // Thêm RouterLink nếu cần
+  imports: [CommonModule, RouterLink, DecimalPipe, FormsModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
@@ -71,6 +74,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   showAddToCartToast: boolean = false;
   addedProductName: string = '';
+
+  // Biến cho Search Suggestions
+  isSearchFocused: boolean = false;
+  searchQuery: string = '';
 
   // Biến kiểm soát trạng thái cuộn của Body (Mới)
   isModalOpen: boolean = false;
@@ -162,6 +169,55 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
+  // Dữ liệu gợi ý phổ biến
+  popularSuggestions: string[] = [
+    'bàn chải tre',
+    'túi lưới đi chợ',
+    'xà phòng tự nhiên',
+    'ống hút inox',
+    'bông tẩy trang',
+  ];
+
+  // Dữ liệu sản phẩm gợi ý (mẫu)
+  suggestedProducts = [
+    {
+      id: 1,
+      name: 'Xà Phòng Gội Đầu Thiên Nhiên',
+      brand: 'ZWS Essentials',
+      price: 200000,
+      thumbnailUrl: '/assets/images/products/xa_phong_goi_dau_thien_nhien.svg',
+      rating: 4.8,
+      slug: 'xa-phong-goi-dau',
+    },
+    {
+      id: 2,
+      name: 'Khăn Giấy Tái Sử Dụng ZWS',
+      brand: 'ZWS Essentials',
+      price: 100000,
+      thumbnailUrl: '/assets/images/products/khan_giay_tai_su_dung.svg',
+      rating: 4.5,
+      slug: 'khan-giay-tai-su-dung',
+    },
+    {
+      id: 3,
+      name: 'Bàn Chải Đánh Răng Tre',
+      brand: 'ZWS Essentials',
+      price: 45000,
+      thumbnailUrl: '/assets/images/products/ban_chai_danh_rang_tre.svg',
+      rating: 4.9,
+      slug: 'ban-chai-tre',
+    },
+    {
+      id: 4,
+      name: 'Bộ Ống Hút Thép Không Gỉ',
+      brand: 'ZWS Essentials',
+      price: 120000,
+      thumbnailUrl: '/assets/images/products/ong_hut_inox.svg',
+      rating: 4.6,
+      slug: 'ong-hut-inox',
+    },
+  ];
+
   listSearchTerm: string = '';
   wishlists: Wishlist[] = [];
   filteredWishlists: Wishlist[] = [];
@@ -174,7 +230,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private wishlistService: WishlistService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -188,10 +246,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Đảm bảo cuộn được bật lại khi component bị hủy
   ngOnDestroy(): void {
-    if (this.isModalOpen) {
+    if (isPlatformBrowser(this.platformId) && this.isModalOpen) {
       this.renderer.removeClass(document.body, 'modal-open');
     }
-    this.renderer.removeClass(document.body, 'no-scroll');
   }
 
   getProductInfo(productId: number): Product | undefined {
@@ -200,13 +257,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Hàm QUAN TRỌNG: Quản lý trạng thái khóa cuộn (Mới)
   private setModalState(forceState?: boolean) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     let newState: boolean;
 
     if (typeof forceState === 'boolean') {
-      // Nếu có tham số, sử dụng nó để buộc (force) trạng thái
       newState = forceState;
     } else {
-      // Nếu không có tham số, tính toán trạng thái tự động như trước
       newState =
         this.isCartPopupVisible ||
         this.isWishlistDropdownVisible ||
@@ -214,14 +271,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isShareModalVisible;
     }
 
-    // Chỉ thực hiện thay đổi DOM nếu trạng thái thực sự thay đổi
     if (this.isModalOpen !== newState) {
       this.isModalOpen = newState;
       if (newState) {
-        // Thêm class 'modal-open' vào thẻ <body> để khóa cuộn
         this.renderer.addClass(document.body, 'modal-open');
       } else {
-        // Xóa class 'modal-open' khỏi thẻ <body> để bật cuộn
         this.renderer.removeClass(document.body, 'modal-open');
       }
     }
@@ -318,15 +372,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   copyLink(): void {
-    // Sử dụng document.execCommand('copy') thay vì navigator.clipboard.writeText()
-    // để đảm bảo hoạt động trong môi trường iframe
-    const linkInput = document.querySelector(
-      '.share-link-input'
-    ) as HTMLInputElement;
-    if (linkInput) {
-      linkInput.select();
-      document.execCommand('copy');
-      alert('Đã sao chép link chia sẻ!'); // Thay thế bằng modal/toast message
+    // Kiểm tra xem có đang chạy trên browser không
+    if (isPlatformBrowser(this.platformId)) {
+      const linkInput = document.querySelector(
+        '.share-link-input'
+      ) as HTMLInputElement;
+      if (linkInput) {
+        linkInput.select();
+
+        // Sử dụng Clipboard API hiện đại với fallback
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(this.shareLink)
+            .then(() => {
+              alert('Đã sao chép link chia sẻ!');
+            })
+            .catch(() => {
+              // Fallback về execCommand
+              document.execCommand('copy');
+              alert('Đã sao chép link chia sẻ!');
+            });
+        } else {
+          // Fallback cho trình duyệt cũ
+          document.execCommand('copy');
+          alert('Đã sao chép link chia sẻ!');
+        }
+      }
+    } else {
+      // Nếu chạy trên server, chỉ log
+      console.log('Copy function not available on server');
     }
   }
 
@@ -363,6 +437,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.isListDropdownVisible = !this.isListDropdownVisible;
     this.isMorePopoverVisible = false; // Đóng cái kia
+  }
+
+  get showProducts(): boolean {
+    // Chỉ hiển thị products khi có searchQuery (người dùng đã gõ)
+    return this.searchQuery.trim().length > 0;
   }
 
   get totalCartItems(): number {
@@ -512,16 +591,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Cập nhật trạng thái khóa cuộn (no-scroll)
   private updateBodyScrollState(): void {
-    this.isModalOpen =
-      this.isCartPopupVisible ||
-      this.isWishlistDropdownVisible ||
-      this.isWishlistDetailVisible ||
-      this.isShareModalVisible;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isModalOpen =
+        this.isCartPopupVisible ||
+        this.isWishlistDropdownVisible ||
+        this.isWishlistDetailVisible ||
+        this.isShareModalVisible;
 
-    if (this.isModalOpen) {
-      this.renderer.addClass(document.body, 'modal-open');
-    } else {
-      this.renderer.removeClass(document.body, 'modal-open');
+      if (this.isModalOpen) {
+        this.renderer.addClass(document.body, 'modal-open');
+      } else {
+        this.renderer.removeClass(document.body, 'modal-open');
+      }
     }
   }
 
@@ -582,5 +663,62 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
     }
     return '';
+  }
+
+  get filteredSuggestions(): string[] {
+    if (!this.searchQuery.trim()) {
+      return this.popularSuggestions; // Hiện tất cả khi chưa gõ
+    }
+    return this.popularSuggestions.filter((s) =>
+      s.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
+  get filteredProducts() {
+    if (!this.searchQuery.trim()) {
+      return []; // Không hiện products khi chưa gõ
+    }
+    return this.suggestedProducts.filter((p) =>
+      p.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
+  onSearchFocus(): void {
+    this.isSearchFocused = true;
+  }
+
+  onSearchBlur(): void {
+    // Delay để cho phép click vào suggestions
+    setTimeout(() => {
+      this.isSearchFocused = false;
+    }, 200);
+  }
+
+  onSearchInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery = input.value;
+  }
+
+  selectSuggestion(suggestion: string): void {
+    this.searchQuery = suggestion;
+    this.performSearch();
+  }
+
+  navigateToProduct(product: any): void {
+    this.isSearchFocused = false;
+    this.router.navigate(['/product', product.slug]);
+  }
+
+  performSearch(): void {
+    this.isSearchFocused = false;
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/search'], {
+        queryParams: { q: this.searchQuery },
+      });
+    }
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
   }
 }
